@@ -1,0 +1,29 @@
+<div id="usersPageContainer">
+  <img
+    src="../../assets/more_cropped_banner.jpg"
+    alt="banner image"
+    id="bannerImage"
+  />
+  <div id="questionsContainer">
+    <h1 id="todoHeading">this is where the questions come in</h1>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum delectus
+    amet ea placeat inventore voluptatibus dolores labore recusandae incidunt
+    saepe! Provident est vel, aliquid harum quisquam iusto officia distinctio
+    veritatis?
+  </div>
+  <form [formGroup]="paginationControlsForm" id="paginationControlsForm">
+    <mat-form-field id="itemNumber">
+      <mat-select placeholder="No. of Items" formControlName="ItemNumbers">
+        <mat-option
+          *ngFor="let itemNumber of itemNumbers"
+          [value]="itemNumber.viewValue"
+          >{{ itemNumber.viewValue }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <i class="material-icons" id="loadNextBatchIcon">
+      navigate_next
+      </i>
+  <div id="paginationControls"></div>
+</div>

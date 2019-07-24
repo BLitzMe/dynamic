@@ -1,0 +1,15 @@
+{
+  "dbSchemas": [
+    {
+      "schemaName": "questions",
+      "_id": "someID",
+      "schemaFields": ["A1", "A2", "A3"]
+    },
+    {
+      "schemaName": "Patients",
+      "_id": "someID",
+      "schemaFields": ["Name", "Age", "Ethnicity"]
+    }
+  ]
+}
+
