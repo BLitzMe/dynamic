@@ -1,8 +1,9 @@
-import { PreparedModel } from './Models/modelsArrayModel';
-
+import { GeneralServiceService } from './general-service.service';
+import { ModelsInformationObject } from './Models/modelsInformationObjectModel';
+// import { AnswersSchemasArrayState } from './redux/states/answersschemasarraystate';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../app/redux/state';
+
+import { SchemasArrayState } from './redux/states/questionsschemasarraystate';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
@@ -10,10 +11,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  receivedModelsArray: Observable<Array<PreparedModel>>;
+  receivedQuestionsSchemasArray: Observable<
+    Array<Array<ModelsInformationObject>>
+  >;
+  
+  receivedAnswersSchemasArray: Observable<Array<ModelsInformationObject>>;
   title = 'dynamicModelsTry';
-  constructor(private store: Store<AppState>) {}
+  constructor(private schemasService: GeneralServiceService) {}
   ngOnInit() {
-    this.receivedModelsArray = this.store.select('modelsArrayReducer');
+    
   }
 }

@@ -12,7 +12,7 @@
 const express = require('express'),
   removeSchemasModelRoute = express.Router(),
   multer = require('multer'),
-  schemasModel = require('../../models/schemasModel');
+  schemasModel = require('../../../models/schemasModel');
 
 removeSchemasModelRoute.put('/removeOneSchema', (req, res) => {
   //remove one schema

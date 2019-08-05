@@ -12,25 +12,35 @@
 const express = require('express'),
   postSchemasModelRoute = express.Router(),
   multer = require('multer'),
-  schemasModel = require('../../models/schemasModel');
+  schemasModel = require('../../../models/schemasModel');
 
 postSchemasModelRoute.post('/enterNewSchema', (req, res) => {
-  let newSchema = {
-    schemaName: req.body.schemaName,
-    schemaFields: req.body.schemaFields
+  let newdbSchema = {
+    schemaName: req.body.schemaName, //!!
+    schemaFields: req.body.schemaFields, //!!
+    documentId: req.body.documentId
   };
+  this.enterNewSchema(newdbSchema, schemasModel, req, res);
+});
+exports.enterNewSchema = function enterNewSchema(
+  newdbSchema,
+  schemasModel,
+  req,
+  res
+) {
   console.log(
-    'this is how the new schema looks like ' + '\n' + newSchema + '\n'
+    'this is how the new schema looks like ' + '\n' + newdbSchema + '\n'
   );
-  console.log('id of the dbSchemas object ' + req.body._id);
+  //console.log('id of the dbSchemas object ' + req.body._id);
   schemasModel.mongo
-    .updateOne(
+    .findOneAndUpdate(
       {
-        _id: req.body._id
+        // search for the first document in the databaseschemas collection that has an
+        //array of dbschemas object and append the new object at the end
       },
       {
         $push: {
-          dbSchemas: newSchema
+          dbSchemas: newdbSchema
         }
       }
     )
@@ -38,14 +48,21 @@ postSchemasModelRoute.post('/enterNewSchema', (req, res) => {
       console.log('the schema has been saved and here is the log \n' + log);
       res.status(200).send('new schema saved successfully');
     });
-});
+};
 
 postSchemasModelRoute.post('/enterNewField', (req, res) => {
   //enter new data
+  this.enterNewFieldsToSchema(schemasModel, res, req);
+});
+exports.enterNewFieldsToSchema = function enterNewFields(
+  schemasModel,
+  res,
+  req
+) {
   schemasModel.mongo
     .updateOne(
       {
-        'dbSchemas.schemaName': req.body.schemaToSearch
+        'dbSchemas.schemaName': req.body.collectionName
       },
       {
         $push: {
@@ -56,6 +73,5 @@ postSchemasModelRoute.post('/enterNewField', (req, res) => {
     .then(() => {
       res.send('new field added successfully');
     });
-});
-
-module.exports = postSchemasModelRoute;
+};
+exports.postSchemasModelRoute = postSchemasModelRoute;

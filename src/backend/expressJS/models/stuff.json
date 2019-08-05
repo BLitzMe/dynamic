@@ -1,15 +1,470 @@
-{
-  "dbSchemas": [
-    {
-      "schemaName": "questions",
-      "_id": "someID",
-      "schemaFields": ["A1", "A2", "A3"]
-    },
-    {
-      "schemaName": "Patients",
-      "_id": "someID",
-      "schemaFields": ["Name", "Age", "Ethnicity"]
-    }
-  ]
-}
-
+[
+  {
+      "schemaName": "my new schema",
+      "documentId": "empty",
+      "schemaData": {
+          "paths": {
+              "_id": {
+                  "path": "_id",
+                  "instance": "ObjectID",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [
+                      null
+                  ],
+                  "options": {
+                      "auto": true
+                  },
+                  "_index": null
+              },
+              "Field One": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "Field One",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "Field Two": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "Field Two",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "Field Three": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "Field Three",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              }
+          },
+          "aliases": {},
+          "subpaths": {},
+          "virtuals": {},
+          "singleNestedPaths": {},
+          "nested": {},
+          "inherits": {},
+          "callQueue": [],
+          "_indexes": [],
+          "methods": {},
+          "methodOptions": {},
+          "statics": {},
+          "tree": {
+              "_id": {
+                  "auto": true
+              },
+              "Field One": "string",
+              "Field Two": "string",
+              "Field Three": "string"
+          },
+          "query": {},
+          "childSchemas": [],
+          "plugins": [],
+          "$id": 3,
+          "s": {
+              "hooks": {
+                  "_pres": {},
+                  "_posts": {}
+              }
+          },
+          "_userProvidedOptions": {
+              "collection": "my new schema"
+          },
+          "options": {
+              "collection": "my new schema",
+              "typeKey": "type",
+              "id": true,
+              "noVirtualId": false,
+              "_id": true,
+              "noId": false,
+              "validateBeforeSave": true,
+              "read": null,
+              "shardKey": null,
+              "autoIndex": null,
+              "minimize": true,
+              "discriminatorKey": "__t",
+              "versionKey": "__v",
+              "capped": false,
+              "bufferCommands": true,
+              "strict": true
+          }
+      }
+  },
+  {
+      "schemaName": "notschema",
+      "documentId": "empty",
+      "schemaData": {
+          "paths": {
+              "_id": {
+                  "path": "_id",
+                  "instance": "ObjectID",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [
+                      null
+                  ],
+                  "options": {
+                      "auto": true
+                  },
+                  "_index": null
+              },
+              "Field Onekike": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "Field Onekike",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "kilopapa": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "kilopapa",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "my secret love": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "my secret love",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              }
+          },
+          "aliases": {},
+          "subpaths": {},
+          "virtuals": {},
+          "singleNestedPaths": {},
+          "nested": {},
+          "inherits": {},
+          "callQueue": [],
+          "_indexes": [],
+          "methods": {},
+          "methodOptions": {},
+          "statics": {},
+          "tree": {
+              "_id": {
+                  "auto": true
+              },
+              "Field Onekike": "string",
+              "kilopapa": "string",
+              "my secret love": "string"
+          },
+          "query": {},
+          "childSchemas": [],
+          "plugins": [],
+          "$id": 4,
+          "s": {
+              "hooks": {
+                  "_pres": {},
+                  "_posts": {}
+              }
+          },
+          "_userProvidedOptions": {
+              "collection": "notschema"
+          },
+          "options": {
+              "collection": "notschema",
+              "typeKey": "type",
+              "id": true,
+              "noVirtualId": false,
+              "_id": true,
+              "noId": false,
+              "validateBeforeSave": true,
+              "read": null,
+              "shardKey": null,
+              "autoIndex": null,
+              "minimize": true,
+              "discriminatorKey": "__t",
+              "versionKey": "__v",
+              "capped": false,
+              "bufferCommands": true,
+              "strict": true
+          }
+      }
+  },
+  {
+      "schemaName": "sexybabey",
+      "documentId": "empty",
+      "schemaData": {
+          "paths": {
+              "_id": {
+                  "path": "_id",
+                  "instance": "ObjectID",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [
+                      null
+                  ],
+                  "options": {
+                      "auto": true
+                  },
+                  "_index": null
+              },
+              "dodi": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "dodi",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "didi": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "didi",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "bidi": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "bidi",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              }
+          },
+          "aliases": {},
+          "subpaths": {},
+          "virtuals": {},
+          "singleNestedPaths": {},
+          "nested": {},
+          "inherits": {},
+          "callQueue": [],
+          "_indexes": [],
+          "methods": {},
+          "methodOptions": {},
+          "statics": {},
+          "tree": {
+              "_id": {
+                  "auto": true
+              },
+              "dodi": "string",
+              "didi": "string",
+              "bidi": "string"
+          },
+          "query": {},
+          "childSchemas": [],
+          "plugins": [],
+          "$id": 5,
+          "s": {
+              "hooks": {
+                  "_pres": {},
+                  "_posts": {}
+              }
+          },
+          "_userProvidedOptions": {
+              "collection": "sexybabey"
+          },
+          "options": {
+              "collection": "sexybabey",
+              "typeKey": "type",
+              "id": true,
+              "noVirtualId": false,
+              "_id": true,
+              "noId": false,
+              "validateBeforeSave": true,
+              "read": null,
+              "shardKey": null,
+              "autoIndex": null,
+              "minimize": true,
+              "discriminatorKey": "__t",
+              "versionKey": "__v",
+              "capped": false,
+              "bufferCommands": true,
+              "strict": true
+          }
+      }
+  },
+  {
+      "schemaName": "like",
+      "documentId": "empty",
+      "schemaData": {
+          "paths": {
+              "_id": {
+                  "path": "_id",
+                  "instance": "ObjectID",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [
+                      null
+                  ],
+                  "options": {
+                      "auto": true
+                  },
+                  "_index": null
+              },
+              "dodieeeeeeee": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "dodieeeeeeee",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "didieeeeeeee": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "didieeeeeeee",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "bidieeeeeeeeee": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "bidieeeeeeeeee",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "dontDeltethis": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "dontDeltethis",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              },
+              "gustavo": {
+                  "enumValues": [],
+                  "regExp": null,
+                  "path": "gustavo",
+                  "instance": "String",
+                  "validators": [],
+                  "getters": [],
+                  "setters": [],
+                  "options": {
+                      "type": "string"
+                  },
+                  "_index": null
+              }
+          },
+          "aliases": {},
+          "subpaths": {},
+          "virtuals": {},
+          "singleNestedPaths": {},
+          "nested": {},
+          "inherits": {},
+          "callQueue": [],
+          "_indexes": [],
+          "methods": {},
+          "methodOptions": {},
+          "statics": {},
+          "tree": {
+              "_id": {
+                  "auto": true
+              },
+              "dodieeeeeeee": "string",
+              "didieeeeeeee": "string",
+              "bidieeeeeeeeee": "string",
+              "dontDeltethis": "string",
+              "gustavo": "string"
+          },
+          "query": {},
+          "childSchemas": [],
+          "plugins": [],
+          "$id": 6,
+          "s": {
+              "hooks": {
+                  "_pres": {},
+                  "_posts": {}
+              }
+          },
+          "_userProvidedOptions": {
+              "collection": "like"
+          },
+          "options": {
+              "collection": "like",
+              "typeKey": "type",
+              "id": true,
+              "noVirtualId": false,
+              "_id": true,
+              "noId": false,
+              "validateBeforeSave": true,
+              "read": null,
+              "shardKey": null,
+              "autoIndex": null,
+              "minimize": true,
+              "discriminatorKey": "__t",
+              "versionKey": "__v",
+              "capped": false,
+              "bufferCommands": true,
+              "strict": true
+          }
+      }
+  }
+]

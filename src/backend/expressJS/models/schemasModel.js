@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 let databaseSchema = new Schema({
   schemaName: { type: String },
-  schemaFields: [String]
+  documentId: { type: String },
+  schemaFields: { type: [String] }
 });
 
 let databaseSchemas = new Schema(

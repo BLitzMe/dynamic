@@ -8,7 +8,7 @@
 
 const express = require('express'),
   getSchemasModelRoute = express.Router(),
-  schemasModel = require('../../models/schemasModel');
+  schemasModel = require('../../../models/schemasModel');
 
 getSchemasModelRoute.get('/', (req, res) => {
   schemasModel.mongo.find((err, allSchemasModel) => {

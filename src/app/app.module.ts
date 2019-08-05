@@ -1,3 +1,4 @@
+import { GeneralServiceService } from './general-service.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -13,14 +14,19 @@ import { AdminsPageComponent } from './admins-page/admins-page.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
-import { modelsArrayReducer } from '../app/redux/reducers/schemaarrayreducers';
+
+import { schemasArrayReducerFunction } from './redux/reducers/questionsschemaarrayreducers';
+import { HttpClientModule } from '@angular/common/http';
+import { SchemaItemComponent } from './admins-page/schema-item/schema-item.component';
+// import { answersSchemasArrayReducer } from './redux/reducers/answersschemasarrayreducer';
+
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     UsersPageComponent,
-    AdminsPageComponent
+    AdminsPageComponent,
+    SchemaItemComponent
   ],
   imports: [
     MatButtonToggleModule,
@@ -31,11 +37,9 @@ import { modelsArrayReducer } from '../app/redux/reducers/schemaarrayreducers';
     MatInputModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({
-      modelsArrayReducer
-    })
+    HttpClientModule
   ],
-  providers: [],
+  providers: [GeneralServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

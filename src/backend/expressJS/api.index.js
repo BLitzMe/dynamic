@@ -4,19 +4,25 @@ const express = require('express'),
   mongoose = require('mongoose'),
   dbConfig = require('../database/db.index'),
   app = express(),
-  getSchemasModelRoute = require('./routes/CRUDoperations/getSchemas'),
-  postSchemasModelRoute = require('./routes/CRUDoperations/postSchemas'),
-  deleteSchemaModelRoute = require('./routes/CRUDoperations/deleteSchemas'),
-  schemaFactoryRoute = require('./routes/schemaFactory/schemaFactory'),
-  schemaTestRoute = require('./routes/schemaFactory/schemaTests');
+  appHelper = require('./app.helper'),
+  getSchemasModelRoute = require('./routes/CRUDoperations/schemas/getSchemas'),
+  postSchemasModelRoute = require('./routes/CRUDoperations/schemas/postSchemas'),
+  deleteSchemaModelRoute = require('./routes/CRUDoperations/schemas/deleteSchemas'),
+  schemaFactoryRoute = require('./routes/factories/schemas/schemaFactory'),
+  schemaTestRoute = require('./routes/factories/schemas/schemaTests'),
+  modelsFactoryRoute = require('./routes/factories/modelstosend/modelsFactory'),
+  updatePropertiesRoute = require('./routes/CRUDoperations/properties/updateProperties'),
+  getPropertiesRoute = require('./routes/CRUDoperations/properties/getProperties');
 
 //express definitions
-app.use(
+/* app.use(
   bodyParser.urlencoded({
     extended: true
   })
-);
+); */
+app.use(bodyParser.json());
 app.use(cors());
+app.locals.modelsArray = appHelper.savedModelsArray;
 
 //serve sale images folder
 /* app.use('/getSaleItemImage', express.static('./saleimages/'));
@@ -40,9 +46,12 @@ mongoose.connect(dbConfig.DB, mongooseConfig).then(
 );
 const port = process.env.PORT || 4000;
 app.use('/getDatabaseSchemas', getSchemasModelRoute);
-app.use('/postDatabaseSchemas', postSchemasModelRoute);
+app.use('/postDatabaseSchemas', postSchemasModelRoute.postSchemasModelRoute);
 app.use('/deleteDatabaseSchemas', deleteSchemaModelRoute);
 app.use('/bootSchemaFactory', schemaFactoryRoute.schemaFactoryRoute);
 app.use('/schemaTestRoute', schemaTestRoute);
+app.use('/modelsFactoryRoute', modelsFactoryRoute);
+app.use('/updateProperties', updatePropertiesRoute.updatePropertiesRoute);
+app.use('/getProperties', getPropertiesRoute.getPropertiesRoute);
 app.listen(port);
 console.log('Listening on port ' + port);

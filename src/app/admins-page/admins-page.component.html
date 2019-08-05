@@ -1,3 +1,21 @@
-<p>
-  admins-page works!
-</p>
+<div id="adminsPageContainer">
+  <div id="banner">
+    <img
+      src="../../assets/more_cropped_banner.jpg"
+      alt="banner image"
+      id="bannerImage"
+    />
+  </div>
+  <div id="schemasContainer">
+    <button (click)="printArrays()">press me good sir</button>
+    <div *ngFor="let schema of schemas" id="singleSchema">
+      <h3 id="schemaName">Schema Name: {{ schema.schemaName }}</h3>
+      <h4>Schema Fields</h4>
+      <ul *ngFor="let field of schema.schemaFields">
+        <li id="schemaField">{{ field }}</li>
+      </ul>
+    </div>
+
+    <!--  <button (click)="printObsValue()">click for titties</button> -->
+  </div>
+</div>
