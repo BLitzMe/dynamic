@@ -19,7 +19,6 @@ export class AdminsPageService {
   > = this.genService.dbSchemasArray$.pipe(
     map((result: DbSchemasObject) => {
       console.log(result[0]);
-      
     }),
     catchError(err => {
       console.log(err);
@@ -66,58 +65,49 @@ export class AdminsPageService {
       })
     );
   }
-  // collect answers
-  processQuestionsPropertiesArray$(): any {
-    return this.getQuestionsProperties$().pipe(
-      map(result => {
-        console.log(result);
-        for (const ele of result) {
-          console.log(ele);
-          delete ele._id;
-          delete ele.__v;
-        }
-        console.log(result);
-        return result;
-      })
+  createNewSchema$(dataToSend) {
+    console.log(dataToSend);
+    return this.http.post(
+      this.backendUri + '/postDatabaseSchemas/enterNewSchema',
+      dataToSend
     );
   }
-  processSchemaAndProperties(): any {
-    // collect question Properties
-    const result$ = combineLatest([
-      this.dbSchemasArray$,
-      this.processQuestionsPropertiesArray$()
-    ]).pipe();
-
-    /* merge(
-      this.dbSchemasArray$.pipe(),
-      this.processQuestionsPropertiesArray$().pipe()
-    ); */
-    return result$;
+  deleteSchema$(deleteParameters) {
+    console.log(deleteParameters);
+    return this.http.post(
+      this.genService.backendUri + '/deleteDatabaseSchemas/removeSchemaAndDoc',
+      deleteParameters,
+      this.genService.generalHttpOptions
+    );
   }
-  assignAnswers(schemasArray, myQuesArray) {
-    const quesArray = Object.assign([], myQuesArray);
-    console.log(quesArray);
-    const tempArray = [];
-    // Only one key has to exist in the quesArray
-    for (let schema = 0; schema <= schemasArray.length - 1; schema++) {
-      // if ther is one property on the quesitons object that matches the
-      // schema fields
-      if (quesArray[0].hasOwnProperty(schemasArray[schema].schemaFields[0])) {
-        let tempEle = {};
-        tempEle = Object.assign(
-          {},
-          {
-            ...schemasArray[schema],
-            quesAnsObj: quesArray[0]
-          }
-        );
-        tempArray.push(tempEle);
-        quesArray = _.pull(quesArray, quesArray[0]);
-        schema = 0;
-        // make a new object on the schema object that contains the schema fields
-        // simply insert the questions object onto the schema object
-      }
-    }
-    return tempArray;
+  editSchemaName$(dataToSend) {
+    return this.http.post(
+      this.genService.backendUri + '/updateSchema/updateSchemaName',
+      dataToSend
+    );
+  }
+  editQuestionField$(dataToSend) {
+    return this.http.post(
+      this.genService.backendUri + '/updateField/updateField',
+      dataToSend
+    );
+  }
+  addNewField$(dataToSend) {
+    return this.http.post(
+      this.genService.backendUri + '/updateField/updateField',
+      dataToSend
+    );
+  }
+  addProperty$(dataToSend) {
+    return this.http.post(
+      this.genService.backendUri + '/updateProperties',
+      dataToSend
+    );
+  }
+  deleteField$(dataToSend) {
+    return this.http.post(
+      this.genService.backendUri + '/deleteField',
+      dataToSend
+    );
   }
 }

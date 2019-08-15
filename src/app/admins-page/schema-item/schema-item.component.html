@@ -1,1 +1,142 @@
-<p>schema-item works!</p>
+<div>
+  <form [formGroup]="schemaEditData" id="questionDataForm">
+    <h5 id="schemaName">
+      Schema Name:
+      <span (click)="schemaNameInput = true" [hidden]="schemaNameInput">{{
+        schema.schemaName
+      }}</span>
+      <span [hidden]="!schemaNameInput"
+        ><mat-form-field id="schemaNameInputField">
+          <input
+            matInput
+            placeholder="New Schema Name"
+            formControlName="schemaName"
+          />
+        </mat-form-field>
+        <button mat-button (click)="editSchemaName(schema.schemaName)">
+          Save</button
+        ><button mat-button (click)="schemaNameInput = false">
+          Cancel
+        </button></span
+      >
+    </h5>
+    <h6>Schema Fields</h6>
+    <ul *ngFor="let key of objectKeys(schema.quesStatementObj); let i = index">
+      <li id="schemaField">
+        <ng-template #popContent
+          ><button
+            mat-button
+            (click)="deleteField(schema.schemaName, schema.schemaFields, key)"
+          >
+            delete<i class="material-icons" id="deleteFieldPopOverIcon">
+              delete_forever
+            </i>
+          </button>
+        </ng-template>
+
+        <span
+          (click)="questionKeyInput = true; selectItem(i)"
+          [hidden]="questionKeyInput && selectedIdx == i"
+          [ngbPopover]="popContent"
+          triggers="mouseenter:"
+          popoverTitle=""
+          >{{ key }}:</span
+        >
+        <span [hidden]="!questionKeyInput || selectedIdx != i"
+          ><mat-form-field id="questionKeyInputField">
+            <input
+              matInput
+              placeholder="Question Key"
+              formControlName="questionKey"
+            />
+          </mat-form-field>
+          <button
+            mat-button
+            (click)="
+              editQuestionField(
+                schema.schemaName,
+                key,
+                schema.quesStatementObj[key],
+                schema.schemaFields
+              )
+            "
+          >
+            Save
+          </button>
+          <button mat-button (click)="questionKeyInput = false">
+            Cancel
+          </button></span
+        >
+        <span
+          [hidden]="questionInput && selectedIdx == i"
+          (click)="questionInput = true; selectItem(i)"
+        >
+          {{ schema.quesStatementObj[key] }}
+        </span>
+        <span
+          *ngIf="schema.quesStatementObj[key] !== '' && selectedIdx == i"
+          [hidden]="!questionInput"
+        >
+          <mat-form-field id="quesStateInputField">
+            <input
+              matInput
+              placeholder="Enter Question"
+              formControlName="question"
+            />
+          </mat-form-field>
+          <button
+            mat-button
+            (click)="addProperty(key, schema.schemaName, schema.schemaFields)"
+          >
+            Save
+          </button>
+          <button mat-button (click)="questionInput = false; tester()">
+            Cancel
+          </button>
+        </span>
+        <span *ngIf="schema.quesStatementObj[key] === ''">
+          <mat-form-field id="quesStateInputField">
+            <input
+              matInput
+              placeholder="Enter Question"
+              formControlName="question"
+            />
+          </mat-form-field>
+          <button
+            mat-button
+            (click)="addProperty(key, schema.schemaName, schema.schemaFields)"
+          >
+            Save
+          </button>
+          <button mat-button (click)="questionInput = false; tester()">
+            Cancel
+          </button>
+        </span>
+      </li>
+    </ul>
+  </form>
+  <form [formGroup]="newFieldData">
+    <span *ngIf="newFieldInput">
+      <mat-form-field id="newFieldQuestionKey">
+        <input
+          matInput
+          placeholder="Enter New Field"
+          formControlName="newFieldValue"
+        />
+      </mat-form-field>
+
+      <button
+        mat-button
+        (click)="sendNewFieldData(schema.schemaName, schema.schemaFields)"
+      >
+        Save
+      </button>
+      <button mat-button (click)="newFieldInput = false; tester()">
+        Cancel
+      </button>
+    </span>
+    <p id="addNewField">
+      <button mat-button (click)="newFieldInput = true">Add New Field</button>
+    </p>
+  </form>
+</div>

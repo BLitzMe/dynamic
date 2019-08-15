@@ -17,6 +17,11 @@ export class GeneralServiceService {
       'Content-Type': 'application/json'
     })
   };
+  formDataHttpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'formData'
+    })
+  };
 
   questionsSchemasArray$: any = this.http
     .get<ModelsInformationObject[]>(

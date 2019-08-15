@@ -14,7 +14,7 @@ import { AdminsPageComponent } from './admins-page/admins-page.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { schemasArrayReducerFunction } from './redux/reducers/questionsschemaarrayreducers';
 import { HttpClientModule } from '@angular/common/http';
 import { SchemaItemComponent } from './admins-page/schema-item/schema-item.component';
@@ -37,7 +37,8 @@ import { SchemaItemComponent } from './admins-page/schema-item/schema-item.compo
     MatInputModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [GeneralServiceService],
   bootstrap: [AppComponent]

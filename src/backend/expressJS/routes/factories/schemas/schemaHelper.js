@@ -152,7 +152,7 @@ function newAnswersSchema(schemaTemplate, fixedSchemaObject = {}) {
 function createEmptySchema(schemaName, fixedSchemaObjects) {
   return new Promise((resolve, reject) => {
     try {
-      modelToWorkWith = new Schema(fixedSchemaObjects, {
+      let modelToWorkWith = new Schema(fixedSchemaObjects, {
         collection: schemaName
       });
 

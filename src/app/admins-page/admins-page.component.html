@@ -7,13 +7,56 @@
     />
   </div>
   <div id="schemasContainer">
-    <button (click)="printArrays()">press me good sir</button>
-    <div *ngFor="let schema of schemas" id="singleSchema">
-      <h3 id="schemaName">Schema Name: {{ schema.schemaName }}</h3>
-      <h4>Schema Fields</h4>
-      <ul *ngFor="let field of schema.schemaFields">
-        <li id="schemaField">{{ field }}</li>
-      </ul>
+    <div class="generalBox" *ngIf="newSchemaInput" id="newSchemaInput">
+      <h5>New Schema</h5>
+      <form [formGroup]="newSchemaData" id="newSchemaForm">
+        <mat-form-field id="schemaNameInputField">
+          <input
+            matInput
+            placeholder="New Schema Name"
+            formControlName="schemaName"
+          />
+        </mat-form-field>
+        <mat-form-field id="schemaFieldsInputField">
+          <input
+            matInput
+            placeholder="New Schema Fields"
+            formControlName="schemaFields"
+          /> </mat-form-field
+        ><button
+          mat-button
+          [disabled]
+          (click)="sendNewSchemaData(); newSchemaInput = false"
+        >
+          Save
+        </button>
+        <button mat-button (click)="newSchemaInput = false">Cancel</button>
+      </form>
+    </div>
+
+    <div
+      class="generalBox"
+      *ngFor="let schema of schemas$ | async"
+      id="singleSchema"
+    >
+      <div ngbDropdown id="dropDownMenuContainer" placement="bottom left">
+        <i class="material-icons" id="dropDownMenuIcon" ngbDropdownToggle>
+          add_box
+        </i>
+        <div ngbDropdownMenu placement="left right" id="dropDownMenu">
+          <button mat-button (click)="newSchemaInput = true">
+            New Schema
+          </button>
+          <button mat-button (click)="deleteSchema(schema.schemaName)">
+            Delete Schema
+          </button>
+        </div>
+      </div>
+      <app-schema-item
+        (updateViewEmitter)="updateDbSchemasObs($event)"
+        [schema]="schema"
+        id="schemaItem"
+      ></app-schema-item>
     </div>
 
     <!--  <button (click)="printObsValue()">click for titties</button> -->

@@ -11,8 +11,11 @@ const express = require('express'),
   schemaFactoryRoute = require('./routes/factories/schemas/schemaFactory'),
   schemaTestRoute = require('./routes/factories/schemas/schemaTests'),
   modelsFactoryRoute = require('./routes/factories/modelstosend/modelsFactory'),
-  updatePropertiesRoute = require('./routes/CRUDoperations/properties/updateProperties'),
-  getPropertiesRoute = require('./routes/CRUDoperations/properties/getProperties');
+  updatePropertiesRoute = require('./routes/CRUDoperations/questions/properties/updateProperties'),
+  getPropertiesRoute = require('./routes/CRUDoperations/questions/properties/getPropertiesAndFields/getProperties'),
+  updateSchemasRoute = require('./routes/CRUDoperations/schemas/updateSchemas'),
+  updateFieldsRoute = require('./routes/CRUDoperations/questions/fields/updateField'),
+  deleteField = require('./routes/CRUDoperations/questions/fields/delField');
 
 //express definitions
 /* app.use(
@@ -20,8 +23,10 @@ const express = require('express'),
     extended: true
   })
 ); */
+
 app.use(bodyParser.json());
 app.use(cors());
+
 app.locals.modelsArray = appHelper.savedModelsArray;
 
 //serve sale images folder
@@ -49,9 +54,12 @@ app.use('/getDatabaseSchemas', getSchemasModelRoute);
 app.use('/postDatabaseSchemas', postSchemasModelRoute.postSchemasModelRoute);
 app.use('/deleteDatabaseSchemas', deleteSchemaModelRoute);
 app.use('/bootSchemaFactory', schemaFactoryRoute.schemaFactoryRoute);
-app.use('/schemaTestRoute', schemaTestRoute);
+app.use('/schemaTestRoute', schemaTestRoute.schemaTestRoute);
 app.use('/modelsFactoryRoute', modelsFactoryRoute);
 app.use('/updateProperties', updatePropertiesRoute.updatePropertiesRoute);
 app.use('/getProperties', getPropertiesRoute.getPropertiesRoute);
+app.use('/updateSchema', updateSchemasRoute.updateSchemasRoute);
+app.use('/deleteField', deleteField.deleteFieldsRoute);
+app.use('/updateField', updateFieldsRoute.updateFieldsRoute);
 app.listen(port);
 console.log('Listening on port ' + port);

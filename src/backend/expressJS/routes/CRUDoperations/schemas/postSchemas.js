@@ -12,15 +12,47 @@
 const express = require('express'),
   postSchemasModelRoute = express.Router(),
   multer = require('multer'),
+  upload = multer(),
+  crudHelper = require('../crudHelper'),
   schemasModel = require('../../../models/schemasModel');
 
-postSchemasModelRoute.post('/enterNewSchema', (req, res) => {
+postSchemasModelRoute.post('/enterNewSchema', upload.none(), (req, res) => {
+  console.log(req.body);
   let newdbSchema = {
     schemaName: req.body.schemaName, //!!
     schemaFields: req.body.schemaFields, //!!
     documentId: req.body.documentId
   };
-  this.enterNewSchema(newdbSchema, schemasModel, req, res);
+  let badSchemaField = false;
+  for (let field of req.body.schemaFields) {
+    if (
+      field ===
+      ('once' ||
+        'on' ||
+        'emit' ||
+        '_events' ||
+        'db' ||
+        'get' ||
+        'set' ||
+        'init' ||
+        'isNew' ||
+        'errors' ||
+        'schema' ||
+        'options' ||
+        'modelName' ||
+        'collection' ||
+        '_pres' ||
+        '_posts' ||
+        'toObject')
+    ) {
+      badSchemaField = true;
+    }
+  }
+  if (badSchemaField === true) {
+    res.status(501).json("valid field name wasn't entered. Please try again");
+  } else {
+    this.enterNewSchema(newdbSchema, schemasModel, req, res);
+  }
 });
 exports.enterNewSchema = function enterNewSchema(
   newdbSchema,
@@ -46,32 +78,18 @@ exports.enterNewSchema = function enterNewSchema(
     )
     .then(log => {
       console.log('the schema has been saved and here is the log \n' + log);
-      res.status(200).send('new schema saved successfully');
+      res.status(200).json('new schema saved successfully');
     });
 };
 
-postSchemasModelRoute.post('/enterNewField', (req, res) => {
+postSchemasModelRoute.post('/enterNewField', upload.none(), (req, res) => {
+  console.log(req.body);
   //enter new data
-  this.enterNewFieldsToSchema(schemasModel, res, req);
+  enterFields(schemasModel, req, res);
 });
-exports.enterNewFieldsToSchema = function enterNewFields(
-  schemasModel,
-  res,
-  req
-) {
-  schemasModel.mongo
-    .updateOne(
-      {
-        'dbSchemas.schemaName': req.body.collectionName
-      },
-      {
-        $push: {
-          'dbSchemas.$.schemaFields': req.body.newField
-        }
-      }
-    )
-    .then(() => {
-      res.send('new field added successfully');
-    });
-};
+
+async function enterFields(schemasModel, req, res) {
+  await crudHelper.enterNewFieldsToSchema(schemasModel, req, res);
+  res.status(200).json('new field added successfully');
+}
 exports.postSchemasModelRoute = postSchemasModelRoute;

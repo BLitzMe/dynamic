@@ -12,45 +12,42 @@
 const express = require('express'),
   removeSchemasModelRoute = express.Router(),
   multer = require('multer'),
+  upload = multer(),
+  schemasHelper = require('./schemasHelper'),
   schemasModel = require('../../../models/schemasModel');
 
-removeSchemasModelRoute.put('/removeOneSchema', (req, res) => {
-  //remove one schema
-  schemasModel.mongo
-    .updateOne(
-      {},
-      {
-        $pull: { dbSchemas: { schemaName: req.body.schemaName } }
-      },
-      { multi: false }
-    )
-    .catch(err => {
-      res.send('some error occured: \n' + err);
-    })
-    .then(() => {
-      res.send('schema deleted successfully');
-    });
+removeSchemasModelRoute.post('/removeDirtySchema', (req, res) => {
+  schemasModel.mongo.findByIdAndDelete({ _id: req.body._id }, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send('the dirty schema was deleted' + result);
+    }
+  });
 });
-removeSchemasModelRoute.put('/removeOneFieldValue', (req, res) => {
-  //remove one field
-  schemasModel.mongo
-    .updateOne(
-      {
-        'dbSchemas.schemaName': req.body.schemaToSearch
-      },
-      {
-        $pull: {
-          'dbSchemas.$.schemaFields': req.body.fieldToRemove
-        }
-      }
-    )
-    .catch(err => {
-      res.send('some error occured: \n' + err);
-    })
-    .then(() => {
-      res.send(
-        'schemaField value ' + req.body.fieldToRemove + ' deleted successfully'
-      );
-    });
-});
+
+removeSchemasModelRoute.post(
+  '/removeSchemaAndDoc',
+  upload.none(),
+  (req, res) => {
+    //remove one schema and its doc
+    schemasHelper.deleteSchemaAndDoc(req, res);
+  }
+);
+removeSchemasModelRoute.put(
+  '/removeOneFieldValue',
+  upload.none(),
+  (req, res) => {
+    //remove one field
+  }
+);
+
+async function removeField(req, res) {
+  await schemasHelper.removeField(schemasModel, req, res);
+  res
+    .status(200)
+    .json(
+      'schemaField value ' + req.body.fieldToRemove + ' deleted successfully'
+    );
+}
 module.exports = removeSchemasModelRoute;

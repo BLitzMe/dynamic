@@ -18,15 +18,46 @@
 #schemasContainer {
   grid-column: 1/-1;
   grid-row-start: 2;
+  padding: 1em 1em;
 }
-#singleSchema {
+.generalBox {
+  grid-column: 1/-1;
   border: 0.2em solid black;
   margin-bottom: 0.5em;
   padding: 0.5em 0.5em;
 }
-#schemaName{
-
+#singleSchema {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
 }
-#schemaField{
-    
+#schemaItem {
+  grid-column: 1/-1;
+  grid-row-start: 1;
+}
+#dropDownMenuIcon {
+  font-size: 2em;
+}
+#dropDownMenuIcon:hover {
+  cursor: pointer;
+}
+#dropDownMenuContainer {
+  grid-column: 11 / span 1;
+  justify-self: end;
+  grid-row-start: 1;
+  margin-top: 0.25em;
+  margin-right: 0.125em;
+}
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu.show {
+  display: flex;
+  flex-direction: column;
+
+  float: unset;
+}
+::ng-deep .mat-form-field {
+  margin: 0em 0.5em;
+  font-size: 0.8em;
 }

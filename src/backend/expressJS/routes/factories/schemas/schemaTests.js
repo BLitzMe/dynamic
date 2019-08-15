@@ -1,12 +1,10 @@
 const express = require('express'),
   schemaTestRoute = express.Router(),
   multer = require('multer'),
-  mongoose = require('mongoose'),
-  schemasModel = require('../../../models/schemasModel'),
-  schemaFactory = require('./schemaFactory');
+  upload = multer();
 
-schemaTestRoute.get('/', (req, res) => {
-  res.status(500).send(schemaFactory.modelsArray);
+schemaTestRoute.post('/ew', upload.none(), (req, res) => {
+  res.status(200).json(req.body);
 });
 
-module.exports=schemaTestRoute;
+exports.schemaTestRoute = schemaTestRoute;

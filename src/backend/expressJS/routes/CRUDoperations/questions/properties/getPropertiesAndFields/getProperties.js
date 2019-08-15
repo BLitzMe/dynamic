@@ -1,21 +1,15 @@
 //this is the get properties route because it ends up being
 const express = require('express'),
   getPropertiesRoute = express.Router(),
-  _ = require('lodash'),
-  appHelper = require('../../../app.helper'),
-  propHelper = require('./popertiesHelper'),
-  schemasModel = require('../../../models/schemasModel');
+  getPropHelper = require('./getPropHelper'),
+  crudHelper = require('../../../crudHelper'),
+  schemasModel = require('../../../../../models/schemasModel');
 let docIdToFind;
-/* getPropertiesRoute.get('/', (req, res) => {
-  // create the model to find the collection of
 
-  console.log(docIdToFind);
-});
- */
 getPropertiesRoute.post('/getQuestionsDocs', (req, res) => {
   if (req.body.collectionName && req.body.schemaFields) {
     //find the collection's docId
-    let tempModel = propHelper.createModel(
+    let tempModel = crudHelper.createModel(
       req.body.schemaFields,
       req.body.collectionName
     );
@@ -25,7 +19,7 @@ getPropertiesRoute.post('/getQuestionsDocs', (req, res) => {
       'dbSchemas.$',
       (err, doc) => {
         docIdToFind = doc.dbSchemas[0].documentId;
-        console.log(docIdToFind);
+
         tempModel.findOne({ _id: docIdToFind }, (err, doc) => {
           if (err) {
             console.log(err);
@@ -37,13 +31,12 @@ getPropertiesRoute.post('/getQuestionsDocs', (req, res) => {
       }
     );
   } else {
-    //find all dbSchemas for which a document exists on the db
+    //find all dbSchemas for which a document exists on the db and construct an
+    //array of all schemas with it
 
     schemasModel.mongo.find({}, (err, result) => {
       let tempArr = result[0].dbSchemas;
-      console.log(tempArr);
-      propHelper.sendDocsArray(res, tempArr);
-      // res.status(200).send(result);
+      getPropHelper.sendDocsArray(res, tempArr);
     });
   }
 });
