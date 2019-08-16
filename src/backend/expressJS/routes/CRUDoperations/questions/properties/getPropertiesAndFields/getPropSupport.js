@@ -36,24 +36,28 @@ function countValues(objToCountIn) {
 }
 
 exports.attachQuesAnsObjKeys = function attachQuesAnsObjKeys(schema) {
-  let propArray = [];
+  let fieldsNamesArray = [];
+
   for (let prop in schema.schemaFields) {
     //shake schema field values out of mongoose array
     let isNum = parseInt(prop, 10);
     // eslint-disable-next-line no-empty
     if (isNaN(isNum)) {
     } else {
-      propArray.push(schema.schemaFields[isNum]);
+      fieldsNamesArray.push(schema.schemaFields[isNum]._doc.fieldName);
     }
   }
   let quesStateEmptyObj = {};
   //make empty quesState object out of schema fields
-  for (let prop of propArray) {
+  for (let fieldName of fieldsNamesArray) {
     quesStateEmptyObj = Object.assign(
       {},
       {
         ...quesStateEmptyObj,
-        [prop]: ''
+        [fieldName]: {
+          question: '',
+          fieldOptions: []
+        }
       }
     );
   }
@@ -61,6 +65,22 @@ exports.attachQuesAnsObjKeys = function attachQuesAnsObjKeys(schema) {
   let schemaOnTest = this.attachEmptyQuesStateObj(quesStateEmptyObj, schema);
   return schemaOnTest;
 };
+function shakeMongooseArray(propertyCollection) {
+  let shakenProperties = [];
+
+  for (let prop in propertyCollection) {
+    let localIsNum = parseInt(prop, 10);
+    // eslint-disable-next-line no-empty
+    if (isNaN(localIsNum)) {
+    } else {
+      shakenProperties.push(propertyCollection[localIsNum]);
+    }
+  }
+  return shakenProperties;
+}
+function fieldObject(fieldName, fieldOptions) {
+  (this.fieldName = fieldName), (this.fieldOptions = fieldOptions);
+}
 
 exports.attachEmptyQuesStateObj = function attachEmptyQuesStateObj(
   emptyObj,

@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+let schemaField = {
+  fieldName: { type: String },
+  fieldOptions: [String]
+};
 let databaseSchema = new Schema({
   schemaName: { type: String },
   documentId: { type: String },
-  schemaFields: { type: [String] }
+  schemaFields: { type: [schemaField] }
 });
 
 let databaseSchemas = new Schema(

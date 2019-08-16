@@ -7,6 +7,7 @@ const express = require('express'),
 let docIdToFind;
 
 getPropertiesRoute.post('/getQuestionsDocs', (req, res) => {
+  //*for a single doc
   if (req.body.collectionName && req.body.schemaFields) {
     //find the collection's docId
     let tempModel = crudHelper.createModel(
@@ -14,13 +15,13 @@ getPropertiesRoute.post('/getQuestionsDocs', (req, res) => {
       req.body.collectionName
     );
 
-    schemasModel.mongo.findOne(
+    schemasModel.mongo.findOne(//extract document id
       { 'dbSchemas.schemaName': req.body.collectionName },
       'dbSchemas.$',
       (err, doc) => {
         docIdToFind = doc.dbSchemas[0].documentId;
 
-        tempModel.findOne({ _id: docIdToFind }, (err, doc) => {
+        tempModel.findOne({ _id: docIdToFind }, (err, doc) => {//find doc pertaining to that id
           if (err) {
             console.log(err);
           } else {
@@ -30,14 +31,13 @@ getPropertiesRoute.post('/getQuestionsDocs', (req, res) => {
         });
       }
     );
-  } else {
+  } else {//*for all docs
     //find all dbSchemas for which a document exists on the db and construct an
     //array of all schemas with it
-
-    schemasModel.mongo.find({}, (err, result) => {
-      let tempArr = result[0].dbSchemas;
-      getPropHelper.sendDocsArray(res, tempArr);
-    });
+    
+    
+      getPropHelper.sendDocsArray(res);
+    
   }
 });
 

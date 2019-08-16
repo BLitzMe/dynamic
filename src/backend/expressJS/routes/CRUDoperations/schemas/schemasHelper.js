@@ -31,7 +31,7 @@ exports.deleteDocById = async req => {
     schema.schemaName
   );
   if (schema.documentId === '') {
-    return 'no doc exists for this schema. Deleting dbSchemas doc etnry';
+    return 'no doc exists for this schema. Deleting dbSchemas doc entry';
   } else if (schema.documentId !== '') {
     await tempModel.findOneAndDelete({ _id: schema.documentId });
   }

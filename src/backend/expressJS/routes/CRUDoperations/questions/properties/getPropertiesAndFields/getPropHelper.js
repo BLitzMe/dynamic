@@ -1,8 +1,17 @@
 const getPropSupport = require('./getPropSupport'),
   propHelper = require('../popertiesHelper'),
+  schemasModel = require('../../../../../models/schemasModel'),
   _ = require('lodash');
 
-exports.sendDocsArray = async function(res, arrayToLoopForIds) {
+exports.sendDocsArray = async function(res) {
+  let result = await schemasModel.mongo.find({}, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+    }
+  });
+  let arrayToLoopForIds = result[0].dbSchemas;
   let docsArray = [];
 
   //get the doc with question fields filled
@@ -18,7 +27,10 @@ exports.sendDocsArray = async function(res, arrayToLoopForIds) {
 async function createDocsArray(arrayToLoopForIds) {
   let docsToSend = [];
   for (let obj of arrayToLoopForIds) {
-    let tempModel = propHelper.createModel(obj.schemaFields, obj.schemaName);
+    let tempModel = await propHelper.createModel(
+      obj.schemaFields,
+      obj.schemaName
+    );
     if (obj.documentId === '') {
       continue;
     }
@@ -29,7 +41,7 @@ async function createDocsArray(arrayToLoopForIds) {
           console.log(err);
         } else {
           // if no doc was found for this id, remove the stored id
-          
+
           if (result === null) {
             propHelper.updateSchemadocId(obj.schemaName, '');
           }
@@ -52,11 +64,10 @@ function assignAnswers(schemasArrayInput, mongoStatesArray) {
 
   // shake the mongoose statements array for the statements
   for (let ele of mongoStatesArray) {
-    
     let obj = ele._doc;
     delete obj._id;
     delete obj.__v;
-    
+
     statesArray.push(ele._doc);
   }
   // if  docs were found for any of the schemas,
@@ -115,7 +126,9 @@ function assignAnswers(schemasArrayInput, mongoStatesArray) {
     for (let schema of transformedSchemaArray) {
       let schemaOnTest = getPropSupport.attachQuesAnsObjKeys(schema);
       // if the schema with this anme doesnt exist
-      if (!getPropSupport.checkSchemaExistence(schemaOnTest.schemaName, tempArray)) {
+      if (
+        !getPropSupport.checkSchemaExistence(schemaOnTest.schemaName, tempArray)
+      ) {
         tempArray.push(schemaOnTest);
       }
     }

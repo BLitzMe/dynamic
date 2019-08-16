@@ -2,8 +2,9 @@ const express = require('express'),
   updatePropertiesRoute = express.Router(),
   multer = require('multer'),
   upload = multer(),
-  schemasModel = require('../../../../models/schemasModel'),
-  propHelper = require('./popertiesHelper');
+  updatePropHelper = require('./updatePropHelper'),
+  schemasModel = require('../../../../../models/schemasModel'),
+  propHelper = require('../popertiesHelper');
 
 // use the schema data available at the front end to
 // save new values for fields of a specific schema
@@ -28,7 +29,7 @@ updatePropertiesRoute.post('/', upload.none(), (req, res) => {
 
   //search for a schema for the docId where the schemaName matches the schemaName provided
   schemasModel.mongo.findOne(
-    { 'dbSchemas.schemaName': req.body.collectionName },
+    { 'dbSchemas.schemaName': req.body.schemaName },
     'dbSchemas.$',
     (err, result) => {
       if (err) {
@@ -39,7 +40,7 @@ updatePropertiesRoute.post('/', upload.none(), (req, res) => {
       console.log(testSchema);
 
       if (
-        testSchema.schemaName === req.body.collectionName &&
+        testSchema.schemaName === req.body.schemaName &&
         testSchema.documentId !== ''
       ) {
         //insert values to the keys if it does and turn the boolean true
@@ -47,7 +48,7 @@ updatePropertiesRoute.post('/', upload.none(), (req, res) => {
         console.log('documentId exists');
         let currModel = propHelper.createModel(
           testSchema.schemaFields,
-          req.body.collectionName
+          req.body.schemaName
         );
         fieldsToUpdateArray.forEach(object => {
           currModel.findOneAndUpdate(
@@ -72,18 +73,15 @@ updatePropertiesRoute.post('/', upload.none(), (req, res) => {
         );
         console.log('\nnew fields array: \n' + newFieldsArray);
         //construct a filler for the new temp model object so the correct doc could be pulled
-        newFieldsArray.forEach(tempObj => {
-          tempModelObj = Object.assign(
-            {},
-            {
-              ...tempModelObj,
-              [tempObj.key]: tempObj.val
-            }
+        newFieldsArray.forEach(keyValueEle => {
+          tempModelObj = updatePropHelper.createFieldsObject(
+            tempModelObj,
+            keyValueEle
           );
         });
         let tempModel = propHelper.createModel(
           req.body.schemaFields,
-          req.body.collectionName
+          req.body.schemaName
         );
         let newModel = new tempModel(tempModelObj);
         newModel.save((err, doc) => {
@@ -94,7 +92,7 @@ updatePropertiesRoute.post('/', upload.none(), (req, res) => {
             /*   doc._id; */
             //after creating and saving the doc, save the id on the db schemas schema
             propHelper.updateSchemadocId(
-              req.body.collectionName,
+              req.body.schemaName,
               doc._id,
               res,
               req

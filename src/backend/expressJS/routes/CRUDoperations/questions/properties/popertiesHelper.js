@@ -42,14 +42,17 @@ exports.createModel = function createModel(schemaFields, collectionName) {
   let tempSchema = new mongoose.Schema({});
   let tempObject = {};
   //create schema on the fly and then the model so functions can be performed on it
-
+ 
   schemaFields.forEach(element => {
     tempObject = Object.assign(
       {},
       {
         ...tempObject,
 
-        [element]: typeof element
+        [element.fieldName]:{
+          question: {type: String},
+          fieldOptions: {type: [Number]}
+        } 
       }
     );
   });
@@ -68,7 +71,12 @@ exports.constructKeyValArray = function keyValArray(
   schemaFieldsArray,
   fieldsToUpdateArray
 ) {
-  let tempArray = schemaFieldsArray;
+  //fill temp array with field names
+
+  let tempArray = [];
+  for (let ele of schemaFieldsArray) {
+    tempArray.push(ele.fieldName);
+  }
   let tempArrayTwo = [];
   let keyValArray = [];
   //* strict copy the filedstoupdatearray into key val array.
