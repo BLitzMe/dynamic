@@ -13,13 +13,11 @@ import { Observable, of } from 'rxjs';
 })
 export class UsersPageComponent implements OnInit {
   paginationControlsForm: FormGroup;
-  itemNumbers: ItemNumber[] = [
-    { viewValue: 10 },
-    { viewValue: 25 },
-    { viewValue: 50 },
-    { viewValue: 100 }
-  ];
-  questionsSchemasArray$: any = this.genService.questionsSchemasArray$.pipe(
+  constructor(
+    private formBuilder: FormBuilder,
+    private usersService: UsersPageService,
+    private genService: GeneralServiceService
+  ) {} /*  questionsSchemasArray$: any = this.genService.questionsSchemasArray$.pipe(
     catchError(err => {
       console.log(err);
       return of(null);
@@ -30,17 +28,18 @@ export class UsersPageComponent implements OnInit {
       console.log(err);
       return of(null);
     })
-  );
-  constructor(
-    private formBuilder: FormBuilder,
-    private usersService: UsersPageService,
-    private genService: GeneralServiceService
-  ) {}
-
+  ); */
+  itemNumbers: ItemNumber[] = [
+    { viewValue: 10 },
+    { viewValue: 25 },
+    { viewValue: 50 },
+    { viewValue: 100 }
+  ];
   ngOnInit() {
-    this.setupPagination();
+    /* this.setupPagination(); */
   }
-  getData() {
+
+  /*  getData() {
     this.questionsSchemasArray$.subscribe(result => {
       console.log(result);
     });
@@ -52,5 +51,5 @@ export class UsersPageComponent implements OnInit {
     this.paginationControlsForm = this.formBuilder.group({
       ItemNumbers: ['', [Validators.required]]
     });
-  }
+  } */
 }

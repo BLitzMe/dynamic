@@ -1,0 +1,44 @@
+<div id="newQuestionContainer">
+  <form [formGroup]="newQuestionData">
+    <span
+      ><mat-form-field id="questionKeyInputField">
+        <input
+          matInput
+          placeholder="Enter Question Key"
+          formControlName="newQuestionKey"
+        />
+      </mat-form-field>
+
+      <mat-form-field id="questionValueInputField">
+        <input
+          matInput
+          placeholder="Enter Question Value"
+          formControlName="newQuestionValue"
+        />
+      </mat-form-field>
+    </span>
+
+    <mat-form-field id="questionOptionsInputField">
+      <input
+        matInput
+        placeholder="Enter Question Options"
+        formControlName="newQuestionOptions"
+      /> </mat-form-field
+    ><button
+      mat-stroked-button
+      [disabled]
+      id="saveButton"
+      (click)="sendNewQuestionData()"
+    >
+      Save
+    </button>
+
+    <button
+      mat-stroked-button
+      id="cancelButton"
+      (click)="sendCloseNewQuesInputSignal()"
+    >
+      Cancel
+    </button>
+  </form>
+</div>

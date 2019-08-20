@@ -6,59 +6,49 @@
       id="bannerImage"
     />
   </div>
+
   <div id="schemasContainer">
-    <div class="generalBox" *ngIf="newSchemaInput" id="newSchemaInput">
+    <div class="generalBox" *ngIf="newQuestionsDocInput" id="newSchemaInput">
       <h5>New Schema</h5>
-      <form [formGroup]="newSchemaData" id="newSchemaForm">
-        <mat-form-field id="schemaNameInputField">
-          <input
-            matInput
-            placeholder="New Schema Name"
-            formControlName="schemaName"
-          />
-        </mat-form-field>
-        <mat-form-field id="schemaFieldsInputField">
-          <input
-            matInput
-            placeholder="New Schema Fields"
-            formControlName="schemaFields"
-          /> </mat-form-field
-        ><button
-          mat-button
-          [disabled]
-          (click)="sendNewSchemaData(); newSchemaInput = false"
-        >
-          Save
-        </button>
-        <button mat-button (click)="newSchemaInput = false">Cancel</button>
-      </form>
+      <app-new-questions-doc
+        (updateViewSignal)="subscribeToApi($event)"
+        (closeNewDocElementEmitter)="closeNewQuesDocInput($event)"
+        id="newQuestionsDoc"
+      ></app-new-questions-doc>
     </div>
 
     <div
       class="generalBox"
-      *ngFor="let schema of schemas$ | async"
-      id="singleSchema"
+      *ngFor="let doc of questionsDocs$ | async"
+      id="singleDoc"
     >
-      <div ngbDropdown id="dropDownMenuContainer" placement="bottom left">
-        <i class="material-icons" id="dropDownMenuIcon" ngbDropdownToggle>
-          add_box
-        </i>
-        <div ngbDropdownMenu placement="left right" id="dropDownMenu">
-          <button mat-button (click)="newSchemaInput = true">
-            New Schema
-          </button>
-          <button mat-button (click)="deleteSchema(schema.schemaName)">
-            Delete Schema
-          </button>
-        </div>
-      </div>
-      <app-schema-item
-        (updateViewEmitter)="updateDbSchemasObs($event)"
-        [schema]="schema"
-        id="schemaItem"
-      ></app-schema-item>
-    </div>
+      <div id="dropDownMenuContainer">
+        <mat-expansion-panel
+          class="mat-elevation-z1 custom-header"
+          hideToggle="true"
+        >
+          <mat-expansion-panel-header>
+            Document Actions
+          </mat-expansion-panel-header>
 
-    <!--  <button (click)="printObsValue()">click for titties</button> -->
+          <mat-action-row>
+            <button mat-button (click)="newQuestionsDocInput = true">
+              New Document
+            </button>
+          </mat-action-row>
+          <mat-action-row>
+            <button mat-button (click)="deleteQuesDoc(doc.schemaName)">
+              Delete Document
+            </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>
+
+      <app-question-doc
+        (updateViewEmitter)="subscribeToApi($event)"
+        [doc]="doc"
+        id="doc"
+      ></app-question-doc>
+    </div>
   </div>
 </div>

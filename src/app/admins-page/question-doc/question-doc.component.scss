@@ -1,0 +1,51 @@
+#deleteFieldPopOverIcon {
+  cursor: pointer;
+}
+#questionDocComponent {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+#questionsHeading {
+  grid-row: 2 / span 1;
+  margin: 0.3em;
+}
+#questionsList {
+  grid-row-start: 2;
+}
+#questionDataForm {
+  /*   display: grid;
+  grid-template-columns: repeat(12, 1fr); */
+  grid-row-start: 1;
+  grid-column: 1/-1;
+}
+#schemaName {
+  grid-row: 1 / span 1;
+  margin: 0.3em;
+}
+#addOptionButton {
+  margin: 0.5em;
+  font-size: 0.8em;
+}
+
+
+
+#schemaNameEditIcon .material-icons {
+  margin: 0.12em;
+  font-size: 1.2em;
+}
+#schemaNameEditIcon {
+  display: flex;
+  flex-direction: row;
+}
+#questionDataForm .popover-body {
+  padding: 0.2em;
+}
+#addNewQuestionButton {
+  margin-top: 1em;
+  grid-column: 1 / span 2;
+  justify-self: center;
+}
+#newQusetionComp {
+  margin-top: 1em;
+  grid-column: 1/-1;
+}

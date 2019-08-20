@@ -1,0 +1,222 @@
+<div id="questionContainer">
+  <i
+    class="material-icons"
+    placement="bottom"
+    ngbPopover="Delete Qestion"
+    triggers="mouseenter:mouseleave"
+    popoverTitle=""
+    (click)="deleteQuestion()"
+    id="deleteQuestionItem"
+  >
+    delete_outline
+  </i>
+  <form [formGroup]="editQuestionData" id="questionDataForm">
+    <span [hidden]="!questionKeyInput"
+      ><mat-form-field id="questionKeyInputField">
+        <input
+          matInput
+          placeholder="Question Key"
+          formControlName="questionKey"
+        />
+      </mat-form-field>
+      <button
+        mat-stroked-button
+        (click)="editQuestionKey(question.questionKey)"
+      >
+        Save
+      </button>
+      <button mat-stroked-button (click)="questionKeyInput = false">
+        Cancel
+      </button></span
+    >
+    <ng-template #questionKeyPopOver>
+      <div id="keyPopoverIcons">
+        <i class="material-icons" (click)="questionKeyInput = true"> edit </i>
+      </div></ng-template
+    >
+    <span
+      ><span
+        id="schemaName"
+        [hidden]="questionKeyInput"
+        [autoClose]="false"
+        [popoverTitle]=""
+        placement="top"
+        [ngbPopover]="questionKeyPopOver"
+        class="title is-6"
+        >{{ question.questionKey }} </span
+      ><span>:</span>
+      <span *ngIf="question.questionValue === ''">
+        <span
+          ><mat-form-field id="questionValueInput">
+            <input
+              matInput
+              placeholder="Question Value"
+              formControlName="questionValue"
+            />
+          </mat-form-field>
+          <button
+            mat-stroked-button
+            (click)="editQuestionValue(question.questionKey)"
+          >
+            Save
+          </button>
+          <button mat-stroked-button (click)="questionKeyInput = false">
+            Cancel
+          </button></span
+        >
+      </span>
+      <span *ngIf="question.questionValue !== ''">
+        <span [hidden]="!questionValueInput"
+          ><mat-form-field id="questionValueInput">
+            <input
+              matInput
+              placeholder="Question Value"
+              formControlName="questionValue"
+            />
+          </mat-form-field>
+          <button
+            mat-stroked-button
+            (click)="editQuestionValue(question.questionKey)"
+          >
+            Save
+          </button>
+          <button mat-stroked-button (click)="questionValueInput = false">
+            Cancel
+          </button></span
+        >
+        <ng-template #questionValuePopOver>
+          <div id="keyPopoverIcons">
+            <i class="material-icons" (click)="questionValueInput = true">
+              edit
+            </i>
+          </div></ng-template
+        >
+
+        <span
+          [hidden]="questionValueInput"
+          [popoverTitle]=""
+          placement="top"
+          [ngbPopover]="questionValuePopOver"
+        >
+          {{ question.questionValue }}</span
+        >
+      </span></span
+    >
+
+    <div *ngIf="question.questionOptions.length < 1">
+      <span [hidden]="newQuestionOptionsInput"
+        >No Options for this question.</span
+      >
+
+      <span [hidden]="!newQuestionOptionsInput"
+        ><mat-form-field>
+          <input
+            matInput
+            placeholder="Option(s) a,b,c.."
+            formControlName="additionalQuestionOption"
+          />
+        </mat-form-field>
+        <button
+          mat-stroked-button
+          (click)="addQuestionOptions(question.questionKey)"
+        >
+          Save
+        </button>
+        <button mat-stroked-button (click)="newQuestionOptionsInput = false">
+          Cancel
+        </button></span
+      >
+
+      <button
+        mat-stroked-button
+        [hidden]="newQuestionOptionsInput"
+        id="addOptionButton"
+        (click)="newQuestionOptionsInput = true"
+      >
+        Add Options
+      </button>
+    </div>
+    <span *ngIf="question.questionOptions.length > 0" id="optionsDiv">
+      <span
+        *ngFor="let option of question.questionOptions; let i = index"
+        id="questionOptionsSpan"
+        ><span></span>
+        <ng-template #questionOptionPopOver
+          ><div id="keyPopoverIcons">
+            <i
+              class="material-icons"
+              (click)="questionOptionsInput = true; setIndex(i)"
+            >
+              edit </i
+            ><i
+              class="material-icons"
+              (click)="deleteAnOption(question.questionKey, option)"
+            >
+              delete
+            </i>
+          </div></ng-template
+        >
+        <span *ngIf="questionOptionsInput && index == i"
+          ><mat-form-field id="questionOptionInput">
+            <input
+              matInput
+              placeholder="Option(s) a,b,c.."
+              formControlName="questionOption"
+            />
+          </mat-form-field>
+          <button
+            mat-stroked-button
+            (click)="updateAnOption(question.questionKey, option)"
+          >
+            Save
+          </button>
+          <button mat-stroked-button (click)="questionOptionsInput = false">
+            Cancel
+          </button>
+        </span>
+        <button
+          mat-stroked-button
+          [hidden]="questionOptionsInput && index == i"
+          id="optionsButton"
+          [popoverTitle]=""
+          placement="top"
+          [ngbPopover]="questionOptionPopOver"
+        >
+          {{ option }}
+        </button>
+      </span>
+      <span id="additOptionsIcon"
+        ><i
+          class="material-icons"
+          (click)="additionalQuestionOptionInput = true"
+          [hidden]="additionalQuestionOptionInput"
+        >
+          add
+        </i>
+        <span
+          id="additionalQuestionOptionInput"
+          [hidden]="!additionalQuestionOptionInput"
+          ><mat-form-field>
+            <input
+              matInput
+              placeholder="Option(s) a,b,c.."
+              formControlName="additionalQuestionOption"
+            />
+          </mat-form-field>
+          <button
+            mat-stroked-button
+            (click)="addQuestionOptions(question.questionKey)"
+          >
+            Save
+          </button>
+          <button
+            mat-stroked-button
+            (click)="additionalQuestionOptionInput = false"
+          >
+            Cancel
+          </button></span
+        >
+      </span>
+    </span>
+  </form>
+</div>

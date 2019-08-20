@@ -1,6 +1,7 @@
 const getPropSupport = require('./getPropSupport'),
   propHelper = require('../popertiesHelper'),
   schemasModel = require('../../../../../models/schemasModel'),
+  crudHelper = require('../../../crudHelper'),
   _ = require('lodash');
 
 exports.sendDocsArray = async function(res) {
@@ -43,7 +44,7 @@ async function createDocsArray(arrayToLoopForIds) {
           // if no doc was found for this id, remove the stored id
 
           if (result === null) {
-            propHelper.updateSchemadocId(obj.schemaName, '');
+            crudHelper.updateSchemadocId(obj.schemaName, '');
           }
         }
       }

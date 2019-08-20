@@ -1,0 +1,30 @@
+<div id="newQuestionDocContainer">
+  <form [formGroup]="newQuestionsDocData">
+    <mat-form-field id="schemaNameInputField">
+      <input
+        matInput
+        placeholder="New Schema Name"
+        formControlName="newSchemaName"
+      />
+    </mat-form-field>
+
+    <span
+      ><mat-form-field id="questionKeyInputField">
+        <input
+          matInput
+          placeholder="Ques Key Value(s) a,b,c.."
+          formControlName="schemaFields"
+        />
+      </mat-form-field>
+    </span>
+    <button mat-stroked-button id="saveButton" (click)="sendNewQuesDoc()">Save</button>
+
+    <button
+      mat-stroked-button
+      id="cancelButton"
+      (click)="sendCloseDocElementSignal()"
+    >
+      Cancel
+    </button>
+  </form>
+</div>

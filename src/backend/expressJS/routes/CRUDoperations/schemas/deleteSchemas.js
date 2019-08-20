@@ -34,7 +34,7 @@ removeSchemasModelRoute.post(
     schemasHelper.deleteSchemaAndDoc(req, res);
   }
 );
-removeSchemasModelRoute.put(
+/* removeSchemasModelRoute.put(
   '/removeOneFieldValue',
   upload.none(),
   (req, res) => {
@@ -49,5 +49,5 @@ async function removeField(req, res) {
     .json(
       'schemaField value ' + req.body.fieldToRemove + ' deleted successfully'
     );
-}
+} */
 module.exports = removeSchemasModelRoute;

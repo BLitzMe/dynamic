@@ -1,2 +1,17 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css'; /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/bootstrap/dist/css/bootstrap.css';
+.list-item {
+  z-index: -999;
+}
+.mat-expansion-panel {
+  z-index: 1;
+}
+.mat-form-field {
+  margin: 0em 1em;
+}
+.mat-form-field-wrapper {
+  padding-bottom: 0em;
+}
+.mat-stroked-button {
+  margin-left: 1em;
+}

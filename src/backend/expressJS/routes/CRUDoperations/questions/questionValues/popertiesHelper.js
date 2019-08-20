@@ -25,24 +25,13 @@ exports.updateFields = function updateFields(
     this.updateSchemadocId(collectionName, docId);
   }
 };
-exports.updateSchemadocId = async function updatedocId(schemaName, docId) {
-  await schemasModel.mongo.findOneAndUpdate(
-    {
-      'dbSchemas.schemaName': schemaName
-    },
-    {
-      $set: {
-        'dbSchemas.$.documentId': docId
-      }
-    }
-  );
-};
+
 
 exports.createModel = function createModel(schemaFields, collectionName) {
   let tempSchema = new mongoose.Schema({});
   let tempObject = {};
   //create schema on the fly and then the model so functions can be performed on it
- 
+  
   schemaFields.forEach(element => {
     tempObject = Object.assign(
       {},

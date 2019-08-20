@@ -1,3 +1,4 @@
+import { QuestionDoc } from './Models/questionDocIf';
 import { DbSchemasObject } from './Models/dbSchemasModel';
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
@@ -17,13 +18,20 @@ export class GeneralServiceService {
       'Content-Type': 'application/json'
     })
   };
+  textResponseHttpOptions = {
+    responseType: 'text' as 'json'
+  };
   formDataHttpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'formData'
     })
   };
-
-  questionsSchemasArray$: any = this.http
+  questionDocs$: Observable<Array<QuestionDoc>>;
+  constructor(private http: HttpClient) {}
+  getQuestionDocs$(): Observable<QuestionDoc[]> {
+    return this.http.get<QuestionDoc[]>(this.backendUri + '/getAllQuestions');
+  }
+  /*  questionsSchemasArray$: any = this.http
     .get<ModelsInformationObject[]>(
       this.backendUri + '/bootSchemaFactory/questionsSchemas'
     )
@@ -34,7 +42,6 @@ export class GeneralServiceService {
   dbSchemasArray$: Observable<DbSchemasObject> = this.http.get<DbSchemasObject>(
     this.backendUri + '/getDatabaseSchemas'
   );
-  constructor(private http: HttpClient) {}
 
   getQuestionProperties(
     schemaName?: string,
@@ -52,5 +59,5 @@ export class GeneralServiceService {
           return of(null);
         })
       );
-  }
+  } */
 }

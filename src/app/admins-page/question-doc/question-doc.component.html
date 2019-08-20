@@ -1,0 +1,58 @@
+<div id="questionDocComponent">
+  <form [formGroup]="schemaEditData" id="questionDataForm">
+    <h5 class="title is-4" id="schemaName">
+      Schema:
+      <ng-template #schemaNameControls>
+        <div id="schemaNameEditIcon">
+          <i class="material-icons" (click)="schemaNameInput = true"> edit </i>
+        </div></ng-template
+      ><span
+        [hidden]="schemaNameInput"
+        [popoverTitle]=""
+        placement="bottom"
+        [ngbPopover]="schemaNameControls"
+        >{{ doc.schemaName }}</span
+      >
+      <span [hidden]="!schemaNameInput"
+        ><mat-form-field id="schemaNameInputField">
+          <input
+            matInput
+            placeholder="New Schema Name"
+            formControlName="schemaName"
+          />
+        </mat-form-field>
+        <button mat-button (click)="editSchemaName(doc.schemaName)">
+          Save</button
+        ><button mat-button (click)="schemaNameInput = false">
+          Cancel
+        </button></span
+      >
+    </h5>
+
+    <h6 class="title is-5" id="questionsHeading">Questions</h6>
+    <div class="list" id="questionsList" *ngFor="let question of doc.questions">
+      <app-question
+        [doc]="doc"
+        [question]="question"
+        id="singleQuestion"
+        class="list-item"
+        (updateViewEmitter)="sendViewUpdateSignal($event)"
+      ></app-question>
+    </div>
+  </form>
+  <button
+    mat-stroked-button
+    id="addNewQuestionButton"
+    [hidden]="newQuesInput"
+    (click)="newQuesInput = true"
+  >
+    Add New Question
+  </button>
+  <app-new-question
+    *ngIf="newQuesInput"
+    (closeNewQuesInputEmitter)="closeNewQuesInput($event)"
+    id="newQusetionComp"
+    [doc]="doc"
+    (updateViewEmitter)="sendViewUpdateSignal($event)"
+  ></app-new-question>
+</div>

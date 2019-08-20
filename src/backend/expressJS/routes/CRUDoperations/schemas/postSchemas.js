@@ -17,70 +17,15 @@ const express = require('express'),
   schemasModel = require('../../../models/schemasModel');
 
 postSchemasModelRoute.post('/enterNewSchema', upload.none(), (req, res) => {
-  console.log(req.body);
-  let newdbSchema = {
-    schemaName: req.body.schemaName, //!!
-    schemaFields: req.body.schemaFields, //!!
-    documentId: req.body.documentId
-  };
-  let badSchemaField = false;
-  for (let field of req.body.schemaFields) {
-    if (
-      field ===
-      ('once' ||
-        'on' ||
-        'emit' ||
-        '_events' ||
-        'db' ||
-        'get' ||
-        'set' ||
-        'init' ||
-        'isNew' ||
-        'errors' ||
-        'schema' ||
-        'options' ||
-        'modelName' ||
-        'collection' ||
-        '_pres' ||
-        '_posts' ||
-        'toObject')
-    ) {
-      badSchemaField = true;
-    }
-  }
-  if (badSchemaField === true) {
-    res.status(501).json("valid field name wasn't entered. Please try again");
-  } else {
-    this.enterNewSchema(newdbSchema, schemasModel, req, res);
-  }
+  enterSchema(req, res);
 });
-exports.enterNewSchema = function enterNewSchema(
-  newdbSchema,
-  schemasModel,
-  req,
-  res
-) {
-  console.log(
-    'this is how the new schema looks like ' + '\n' + newdbSchema + '\n'
+async function enterSchema(req, res) {
+  let updatedDoc = await crudHelper.enterNewSchema(req, res);
+  res.write(
+    JSON.stringify({ message: 'newSchema Entered', updatedDoc: updatedDoc })
   );
-  //console.log('id of the dbSchemas object ' + req.body._id);
-  schemasModel.mongo
-    .findOneAndUpdate(
-      {
-        // search for the first document in the databaseschemas collection that has an
-        //array of dbschemas object and append the new object at the end
-      },
-      {
-        $push: {
-          dbSchemas: newdbSchema
-        }
-      }
-    )
-    .then(log => {
-      console.log('the schema has been saved and here is the log \n' + log);
-      res.status(200).json('new schema saved successfully');
-    });
-};
+  res.end();
+}
 
 postSchemasModelRoute.post('/enterNewField', upload.none(), (req, res) => {
   console.log(req.body);

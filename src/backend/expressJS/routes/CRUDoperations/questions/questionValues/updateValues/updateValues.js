@@ -1,34 +1,31 @@
 const express = require('express'),
-  updatePropertiesRoute = express.Router(),
+  updateValuesRoute = express.Router(),
   multer = require('multer'),
   upload = multer(),
-  updatePropHelper = require('./updatePropHelper'),
-  schemasModel = require('../../../../../models/schemasModel'),
-  propHelper = require('../popertiesHelper');
-
+  updatePropHelper = require('./updateValuesHelper');
 // use the schema data available at the front end to
 // save new values for fields of a specific schema
-updatePropertiesRoute.post('/', upload.none(), (req, res) => {
+updateValuesRoute.post('/', upload.none(), (req, res) => {
   //!!function received three arguements, fields to put in,
   //!!name of collection and schema data to build the model
-  let fieldsToUpdateArray = [];
-
-  let recObj = {
+  //let fieldsToUpdateArray = [];
+  updatePropHelper.updateQuestionValue(req, res);
+  /*   let recObj = {
     key: req.body.keyOne,
     value: req.body.valueOne
   }; //!!
 
   fieldsToUpdateArray.push(recObj);
   console.log(fieldsToUpdateArray);
-
+ */
   /* let tempSchema = propHelper.createSchema(req.body.schemaFields);
   console.log(tempSchema);
  */
 
-  let docIdExists = false;
+  //let docIdExists = false;
 
   //search for a schema for the docId where the schemaName matches the schemaName provided
-  schemasModel.mongo.findOne(
+  /* schemasModel.mongo.findOne(
     { 'dbSchemas.schemaName': req.body.schemaName },
     'dbSchemas.$',
     (err, result) => {
@@ -64,7 +61,8 @@ updatePropertiesRoute.post('/', upload.none(), (req, res) => {
       }
       // save the new docuemnt and save the id on the schema object if it doesnt
       if (docIdExists === false) {
-        let tempModelObj = {};
+        updatePropHelper.createNewQuesDoc(req, res); */
+  /* let tempModelObj = {};
         //For a properSchema
         //construct a new key val obj to populate new model obj
         let newFieldsArray = propHelper.constructKeyValArray(
@@ -89,20 +87,19 @@ updatePropertiesRoute.post('/', upload.none(), (req, res) => {
             console.log('error in saving the new doc: ' + err);
           } else {
             console.log('\n saving doc id locally \n' + doc._id + '\n');
-            /*   doc._id; */
+               doc._id; 
             //after creating and saving the doc, save the id on the db schemas schema
             propHelper.updateSchemadocId(
               req.body.schemaName,
-              doc._id,
-              res,
-              req
+              doc._id
+              
             );
             res.status(200).json('\ndone');
           }
-        });
+        }); 
       }
     }
-  );
+  );*/
 });
 
-exports.updatePropertiesRoute = updatePropertiesRoute;
+exports.updateValuesRoute = updateValuesRoute;

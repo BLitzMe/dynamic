@@ -3,8 +3,6 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatChipsModule } from '@angular/material/chips';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,9 +13,15 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { schemasArrayReducerFunction } from './redux/reducers/questionsschemaarrayreducers';
 import { HttpClientModule } from '@angular/common/http';
-import { SchemaItemComponent } from './admins-page/schema-item/schema-item.component';
+import { QuestionDocComponent } from './admins-page/question-doc/question-doc.component';
+import { QuestionComponent } from './admins-page/question-doc/question/question.component';
+import { NewQuestionComponent } from './admins-page/question-doc/new-question/new-question.component';
+import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { NewQuestionsDocComponent } from './admins-page/new-questions-doc/new-questions-doc.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
 // import { answersSchemasArrayReducer } from './redux/reducers/answersschemasarrayreducer';
 
 @NgModule({
@@ -26,7 +30,10 @@ import { SchemaItemComponent } from './admins-page/schema-item/schema-item.compo
     LandingPageComponent,
     UsersPageComponent,
     AdminsPageComponent,
-    SchemaItemComponent
+    QuestionDocComponent,
+    QuestionComponent,
+    NewQuestionComponent,
+    NewQuestionsDocComponent
   ],
   imports: [
     MatButtonToggleModule,
@@ -38,7 +45,11 @@ import { SchemaItemComponent } from './admins-page/schema-item/schema-item.compo
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    MatListModule,
+    MatRadioModule,
+    MatExpansionModule,
+    MatTooltipModule
   ],
   providers: [GeneralServiceService],
   bootstrap: [AppComponent]

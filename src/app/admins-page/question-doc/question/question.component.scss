@@ -1,0 +1,41 @@
+#questionDataForm {
+  grid-column: 1/-1;
+  grid-row-start: 1;
+}
+
+#optionsButton {
+  margin: 0.5em 0.5em;
+}
+#optionsDiv {
+  margin: 0.5em;
+  display: flex;
+  align-items: center;
+}
+#keyPopoverIcons .material-icons {
+  margin: 0.12em;
+  font-size: 1.2em;
+}
+#keyPopover {
+  display: flex;
+  flex-direction: row;
+}
+#questionDataForm .mat-stroked-button {
+  margin-left: 1em;
+}
+#questionOptionsSpan {
+  display: flex;
+  align-items: center;
+}
+#additOptionsIcon .material-icons {
+  font-size: 1.65em;
+  color: rgb(12, 1, 1);
+  border: black solid;
+  border-radius: 0.15em;
+  cursor: pointer;
+}
+#questionDataForm .material-icons {
+  font-size: 1.65em;
+}
+#deleteQuestionItem {
+  cursor: pointer;
+}

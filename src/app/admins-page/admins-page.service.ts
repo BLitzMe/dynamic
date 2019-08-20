@@ -7,107 +7,97 @@ import { Observable, of, from, merge, scheduled, combineLatest } from 'rxjs';
 import { DbSchemaObject, DbSchemasObject } from './../Models/dbSchemasModel';
 import * as _ from 'lodash';
 import { Promise } from 'q';
+import { QuestionDoc } from '../Models/questionDocIf';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminsPageService {
-  // collct schemas
-  backendUri = this.genService.backendUri;
-  schemas: DbSchemaObject[];
-  dbSchemasArray$: Observable<
-    Array<DbSchemaObject>
-  > = this.genService.dbSchemasArray$.pipe(
-    map((result: DbSchemasObject) => {
-      console.log(result[0]);
-    }),
-    catchError(err => {
-      console.log(err);
-      return of(null);
-    })
-  );
-  questionsPropertiesArray: QuestionsProperties[] = [];
+  // get question docs
 
+  backendUri = this.genService.backendUri;
+  resOptions = this.genService.textResponseHttpOptions;
   constructor(
     private http: HttpClient,
     private genService: GeneralServiceService
   ) {}
-
-  deleteSchema(schemaName) {
-    return this.http.put(
-      this.backendUri + '/removeOneSchema',
-      { schemaName },
-      this.genService.generalHttpOptions
-    );
-  }
-  deleteOneField(fieldName) {
-    return this.http.put(
-      this.backendUri + '/removeOneSchema',
-      { fieldName },
-      this.genService.generalHttpOptions
-    );
-  }
-  postNewSchema(formData) {
-    // formdata = schemaName, schemaFields[]
-  }
-  postNewField(formData) {
-    // formdata = collectionName, fieldName
-  }
-  addProperties() {}
-
-  getQuestionsProperties$(
-    schemaName?: string,
-    schemaFields?: string[]
-  ): Observable<QuestionsProperties[]> {
-    return this.genService.getQuestionProperties(schemaName, schemaFields).pipe(
+  getQuestionDocs$(): Observable<QuestionDoc[]> {
+    return this.genService.getQuestionDocs$().pipe(
       catchError(err => {
         console.log(err);
         return of(null);
       })
     );
   }
-  createNewSchema$(dataToSend) {
-    console.log(dataToSend);
+  updateSchemaName$(dataToSend) {
     return this.http.post(
-      this.backendUri + '/postDatabaseSchemas/enterNewSchema',
-      dataToSend
+      this.backendUri + '/updateSchemaNameOnQuesDoc',
+      dataToSend,
+      this.genService.textResponseHttpOptions
     );
   }
-  deleteSchema$(deleteParameters) {
-    console.log(deleteParameters);
+  updateQuestionKey$(dataToSend) {
     return this.http.post(
-      this.genService.backendUri + '/deleteDatabaseSchemas/removeSchemaAndDoc',
-      deleteParameters,
-      this.genService.generalHttpOptions
+      this.backendUri + '/updateQuestionKey',
+      dataToSend,
+      this.resOptions
     );
   }
-  editSchemaName$(dataToSend) {
+  updateQuestionValue$(dataToSend) {
     return this.http.post(
-      this.genService.backendUri + '/updateSchema/updateSchemaName',
-      dataToSend
+      this.backendUri + '/updateQuestionValues',
+      dataToSend,
+      this.resOptions
     );
   }
-  editQuestionField$(dataToSend) {
+  additionalQuestionOptions$(dataToSend) {
     return this.http.post(
-      this.genService.backendUri + '/updateField/updateField',
-      dataToSend
+      this.backendUri + '/updateQuestionOptions/insertNewOptions',
+      dataToSend,
+      this.resOptions
     );
   }
-  addNewField$(dataToSend) {
+  updateAnOption$(dataToSend) {
     return this.http.post(
-      this.genService.backendUri + '/updateField/updateField',
-      dataToSend
+      this.backendUri + '/updateQuestionOptions/updateAnOption',
+      dataToSend,
+      this.resOptions
     );
   }
-  addProperty$(dataToSend) {
+  deleteAnOption$(dataToSend) {
     return this.http.post(
-      this.genService.backendUri + '/updateProperties',
-      dataToSend
+      this.backendUri + '/delOptions',
+      dataToSend,
+      this.resOptions
     );
   }
-  deleteField$(dataToSend) {
+  // new question methods
+  sendNewQuestionData$(dataToSend) {
     return this.http.post(
-      this.genService.backendUri + '/deleteField',
-      dataToSend
+      this.backendUri + '/addAQuestion',
+      dataToSend,
+      this.resOptions
     );
   }
+  deleteQuestion$(dataToSend) {
+    return this.http.post(
+      this.backendUri + '/deleteAQuestion',
+      dataToSend,
+      this.resOptions
+    );
+  }
+  sendNewQuestionsDoc$(dataToSend) {
+    return this.http.post(
+      this.backendUri + '/createQuesDoc',
+      dataToSend,
+      this.resOptions
+    );
+  }
+  deleteQuesDoc$(dataToSend) {
+    return this.http.post(
+      this.backendUri + '/deleteQuestionDocument',
+      dataToSend,
+      this.resOptions
+    );
+  }
+  
 }

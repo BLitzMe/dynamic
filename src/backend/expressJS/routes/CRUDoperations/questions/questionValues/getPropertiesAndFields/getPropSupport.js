@@ -65,22 +65,7 @@ exports.attachQuesAnsObjKeys = function attachQuesAnsObjKeys(schema) {
   let schemaOnTest = this.attachEmptyQuesStateObj(quesStateEmptyObj, schema);
   return schemaOnTest;
 };
-function shakeMongooseArray(propertyCollection) {
-  let shakenProperties = [];
-
-  for (let prop in propertyCollection) {
-    let localIsNum = parseInt(prop, 10);
-    // eslint-disable-next-line no-empty
-    if (isNaN(localIsNum)) {
-    } else {
-      shakenProperties.push(propertyCollection[localIsNum]);
-    }
-  }
-  return shakenProperties;
-}
-function fieldObject(fieldName, fieldOptions) {
-  (this.fieldName = fieldName), (this.fieldOptions = fieldOptions);
-}
+/* */
 
 exports.attachEmptyQuesStateObj = function attachEmptyQuesStateObj(
   emptyObj,

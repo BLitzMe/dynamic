@@ -26,38 +26,43 @@
   margin-bottom: 0.5em;
   padding: 0.5em 0.5em;
 }
-#singleSchema {
+#singleDoc {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 }
-#schemaItem {
+#doc {
   grid-column: 1/-1;
   grid-row-start: 1;
 }
-#dropDownMenuIcon {
-  font-size: 2em;
-}
-#dropDownMenuIcon:hover {
-  cursor: pointer;
-}
+
 #dropDownMenuContainer {
-  grid-column: 11 / span 1;
+  grid-column: 10 / span 3;
   justify-self: end;
-  grid-row-start: 1;
+  grid-row: 1 / span 1;
   margin-top: 0.25em;
   margin-right: 0.125em;
-}
-.dropdown-toggle::after {
-  display: none;
+  cursor: pointer;
+  z-index: 4;
 }
 
-.dropdown-menu.show {
-  display: flex;
+#dropDownMenuContainer .mat-expansion-panel-content {
+  z-index: 10;
+}
+
+/* #schemasContainer .popover-body {
+  padding: 0em;
   flex-direction: column;
-
-  float: unset;
+} */
+#dropDownMenuContainer .material-icons {
+  padding: 0em;
+  font-size: 2em;
+  cursor: pointer;
 }
-::ng-deep .mat-form-field {
-  margin: 0em 0.5em;
-  font-size: 0.8em;
+
+#dropDownMenuContainer .popOverButtons {
+  margin: 0.3em;
+}
+#dropDownMenuContainer .mat-action-row {
+  justify-content: flex-start;
+  padding: 0.5em 0.5em;
 }

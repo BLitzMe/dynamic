@@ -11,11 +11,20 @@ const express = require('express'),
   schemaFactoryRoute = require('./routes/factories/schemas/schemaFactory'),
   schemaTestRoute = require('./routes/factories/schemas/schemaTests'),
   modelsFactoryRoute = require('./routes/factories/modelstosend/modelsFactory'),
-  updatePropertiesRoute = require('./routes/CRUDoperations/questions/properties/updateProperties'),
-  getPropertiesRoute = require('./routes/CRUDoperations/questions/properties/getPropertiesAndFields/getProperties'),
+  updateValuesRoute = require('./routes/CRUDoperations/questions/questionValues/updateValues/updateValues'),
+  getPropertiesRoute = require('./routes/CRUDoperations/questions/questionValues/getPropertiesAndFields/getProperties'),
   updateSchemasRoute = require('./routes/CRUDoperations/schemas/updateSchemas'),
-  updateFieldsRoute = require('./routes/CRUDoperations/questions/fields/updateField'),
-  deleteField = require('./routes/CRUDoperations/questions/fields/delField');
+  updateKeysRoute = require('./routes/CRUDoperations/questions/questionKeys/updateKeys'),
+  //deleteField = require('./routes/CRUDoperations/questions/fields/delField'),
+  initDocs = require('./routes/CRUDoperations/initDocs'),
+  updateOptionsRoute = require('./routes/CRUDoperations/questions/questionOptions/updateOptions'),
+  getAllQuestions = require('./routes/CRUDoperations/questions/getAllQuestions'),
+  addQeustionRoute = require('./routes/CRUDoperations/questions/addAQuestion'),
+  deleteQuestionRoute = require('./routes/CRUDoperations/questions/deleteAQuestion'),
+  delquesDocRoute = require('./routes/CRUDoperations/questions/quesDocs/delQuesDoc'),
+  createQuesDocRoute = require('./routes/CRUDoperations/questions/quesDocs/createQuesDoc'),
+  delOptionsRoute = require('./routes/CRUDoperations/questions/questionOptions/delOption'),
+  updateSchemaNameOnQuesDoc = require('./routes/CRUDoperations/questions/quesDocs/updateSchemaNameOnDoc');
 
 //express definitions
 /* app.use(
@@ -23,7 +32,10 @@ const express = require('express'),
     extended: true
   })
 ); */
-
+app.use(function(req, res, next) {
+  res.header('Content-Type', 'application/json');
+  next();
+});
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -56,10 +68,19 @@ app.use('/deleteDatabaseSchemas', deleteSchemaModelRoute);
 app.use('/bootSchemaFactory', schemaFactoryRoute.schemaFactoryRoute);
 app.use('/schemaTestRoute', schemaTestRoute.schemaTestRoute);
 app.use('/modelsFactoryRoute', modelsFactoryRoute);
-app.use('/updateProperties', updatePropertiesRoute.updatePropertiesRoute);
+app.use('/updateQuestionValues', updateValuesRoute.updateValuesRoute);
 app.use('/getProperties', getPropertiesRoute.getPropertiesRoute);
 app.use('/updateSchema', updateSchemasRoute.updateSchemasRoute);
-app.use('/deleteField', deleteField.deleteFieldsRoute);
-app.use('/updateField', updateFieldsRoute.updateFieldsRoute);
+//app.use('/deleteField', deleteField.deleteFieldsRoute);
+app.use('/updateQuestionKey', updateKeysRoute.updateKeysRoute);
+app.use('/initDocs', initDocs.initDocsRoute);
+app.use('/getAllQuestions', getAllQuestions.getAllQuestionsRoute);
+app.use('/updateQuestionOptions', updateOptionsRoute.updateQuestionOptions);
+app.use('/addAQuestion', addQeustionRoute.addQuestionRoute);
+app.use('/deleteAQuestion', deleteQuestionRoute.delQuestionsRoute);
+app.use('/deleteQuestionDocument', delquesDocRoute.delQuesDocRoute);
+app.use('/createQuesDoc', createQuesDocRoute.createQuesDocRoute);
+app.use('/delOptions', delOptionsRoute.delOptionsRoute);
+app.use('/updateSchemaNameOnQuesDoc', updateSchemaNameOnQuesDoc.updateSchemaNameRoute);
 app.listen(port);
 console.log('Listening on port ' + port);

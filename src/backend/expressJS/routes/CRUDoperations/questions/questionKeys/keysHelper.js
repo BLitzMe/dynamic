@@ -1,5 +1,20 @@
 const crudHelper = require('../../crudHelper'),
-  propHelper = require('../properties/popertiesHelper');
+  quesDocModel = require('../../../../models/questionsDocModel');
+
+exports.updateKeys = async (req, res) => {
+  await crudHelper.removeField(req); // *step two
+  await crudHelper.enterNewFieldsToSchema(req); //* step three
+
+  let newDoc = await quesDocModel.questionsDocModel.findOneAndUpdate(
+    { 'questions.questionKey': req.body.keyToRemove },
+    {
+      $set: {
+        'questions.$.questionKey': req.body.newKey
+      }
+    }
+  );
+  res.status(200).json({ message: 'question Key updated', updatedDoc: newDoc });
+};
 
 /* //*
  *  1. require current field from front end
@@ -29,8 +44,8 @@ exports.updateFields = async function updateFields(schemasModel, req, res) {
   let docId;
   console.log('-------------the received body--------------');
   console.log(req.body);
-  const removeF = await crudHelper.removeField(schemasModel, req, res); // *step two
-  const addNewF = await crudHelper.enterNewFieldsToSchema(schemasModel, req); //* step three
+  const removeF = await crudHelper.removeField(req); // *step two
+  const addNewF = await crudHelper.enterNewFieldsToSchema(req); //* step three
   console.log(removeF, addNewF);
 
   let schema = await crudHelper.getSchema(req);
@@ -62,7 +77,7 @@ exports.updateFields = async function updateFields(schemasModel, req, res) {
     }
 
     let newDocFields;
-
+    // eslint-disable-next-line no-unused-vars
     newDocFields = await tempModel.findOne({ _id: docId }, (err, result) => {
       //*step six
       if (err) {
@@ -107,7 +122,7 @@ exports.updateFields = async function updateFields(schemasModel, req, res) {
         newDocId = doc._id;
         console.log('new doc id');
         console.log(newDocId); //*step nine
-        propHelper.updateSchemadocId(req.body.schemaName, newDocId);
+        crudHelper.updateSchemadocId(req.body.schemaName, newDocId);
         console.log(
           '\n----------------------- step nine done----------------------'
         );
@@ -139,7 +154,7 @@ exports.deleteField = async (schemasModel, req, res) => {
   console.log('delete ping');
   let newSchemaFields;
   let docId;
-  await crudHelper.removeField(schemasModel, req, res); // *step one
+  await crudHelper.removeField(req); // *step one
   let schema = await crudHelper.getSchema(req); //*step two
   docId = schema.documentId;
   if (docId !== '') {
@@ -152,6 +167,7 @@ exports.deleteField = async (schemasModel, req, res) => {
     );
     let newDocFields;
 
+    // eslint-disable-next-line no-unused-vars
     newDocFields = await tempModel.findOne({ _id: docId }, (err, result) => {
       //*step four
       //*step six
@@ -172,7 +188,7 @@ exports.deleteField = async (schemasModel, req, res) => {
         console.log(err);
       } else {
         newDocId = doc._id;
-        propHelper.updateSchemadocId(req.body.schemaName, newDocId);
+        crudHelper.updateSchemadocId(req.body.schemaName, newDocId);
         res.status(200).json('field deleted and doc copied successfully');
       }
     });
