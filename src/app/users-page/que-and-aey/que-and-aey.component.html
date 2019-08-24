@@ -1,0 +1,47 @@
+<form [formGroup]="answerForm">
+  <div id="queAndKeyContainer">
+    <div id="QDiv">
+      <span class="title is-5"
+        >{{ question.questionKey }} :
+        <span class="title is-6" *ngIf="question.questionValue !== ''">{{
+          question.questionValue
+        }}</span>
+        <span *ngIf="question.questionValue === ''"
+          >Question Value Missing. Contact Admin.</span
+        ></span
+      >
+    </div>
+
+    <div *ngIf="question.questionOptions.length < 1" id="ADiv">
+      <mat-form-field id="answerInputField">
+        <input
+          matInput
+          placeholder="Enter Answer"
+          formControlName="textAnswer"
+        />
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="question.questionOptions.length > 0" id="ODiv">
+      <mat-radio-group class="tp-radio-group">
+        <mat-radio-button
+          class="tp-radio-button"
+          [value]="option"
+          (click)="setChecked(option)"
+          *ngFor="let option of question.questionOptions"
+          >{{ option }}</mat-radio-button
+        >
+      </mat-radio-group>
+    </div>
+    <button mat-stroked-button id="nextQuesButton" (click)="openNextQuestion()">
+      Next Question
+    </button>
+    <button
+      mat-stroked-button
+      id="prevQuestButton"
+      (click)="openPreviousQuestion()"
+    >
+      Preveious Question
+    </button>
+  </div>
+</form>

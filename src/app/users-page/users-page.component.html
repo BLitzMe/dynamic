@@ -4,27 +4,58 @@
     alt="banner image"
     id="bannerImage"
   />
-  <div id="questionsContainer">
-    <h1 id="todoHeading">this is where the questions come in</h1>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum delectus
-    amet ea placeat inventore voluptatibus dolores labore recusandae incidunt
-    saepe! Provident est vel, aliquid harum quisquam iusto officia distinctio
-    veritatis?
+  <h1
+    [hidden]="questionnaireSelected"
+    id="selectQuestionnaireHeading"
+    class="title is-3"
+  >
+    Select Questionnaire
+  </h1>
+  <div [hidden]="questionnaireSelected" id="selectQuestionnare">
+    <ul *ngFor="let quess of questionnaires$ | async" id="ulQuess">
+      <li
+        class="button is-outlined"
+        id="listButtons"
+        (click)="selectQuestionnaire(quess)"
+      >
+        {{ quess.schemaName }}
+      </li>
+    </ul>
   </div>
-  <form [formGroup]="paginationControlsForm" id="paginationControlsForm">
-    <mat-form-field id="itemNumber">
-      <mat-select placeholder="No. of Items" formControlName="ItemNumbers">
-        <mat-option
-          *ngFor="let itemNumber of itemNumbers"
-          [value]="itemNumber.viewValue"
-          >{{ itemNumber.viewValue }}</mat-option
-        >
-      </mat-select>
-    </mat-form-field>
-  </form>
-  <i class="material-icons" id="loadNextBatchIcon">
-    navigate_next
-  </i>
-  <button mat-button (click)="getData()">pull models data</button>
-  <div id="paginationControls"></div>
+  <div
+    *ngIf="currentQuestionnaire$ | async as quess"
+    [hidden]="!questionnaireSelected"
+    id="questionsContainer"
+  >
+    <img src="../../assets/QABG.jpg" alt="" id="QnABackGImage" />
+    <button
+      mat-stroked-button
+      id="showQuessSelection"
+      (click)="questionnaireSelected = false; currentQuestionIndex = 0"
+    >
+      Questionnare List
+    </button>
+    <button
+      mat-stroked-button
+      *ngIf="currentQuestionIndex === quess.questions.length - 1"
+      id="sendDataButton"
+      (click)="sendData()"
+    >
+      Send Data
+    </button>
+    <h1 id="QnAHeading" class="title is-5">
+      Questionnaire: {{ quess.schemaName }}
+    </h1>
+    <div id="queAndAeyComp">
+      <app-que-and-aey
+        (nextQuestionEmitter)="
+          increaseQuestionIndex($event, quess.questions.length)
+        "
+        (previousQuestionEmitter)="
+          decreaseQuestionIndex($event, quess.questions)
+        "
+        [question]="quess.questions[currentQuestionIndex]"
+      ></app-que-and-aey>
+    </div>
+  </div>
 </div>

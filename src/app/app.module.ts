@@ -22,6 +22,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NewQuestionsDocComponent } from './admins-page/new-questions-doc/new-questions-doc.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { QueAndAeyComponent } from './users-page/que-and-aey/que-and-aey.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserDataComponent } from './users-page/user-data/user-data.component';
+import { DatePipe } from '@angular/common';
 // import { answersSchemasArrayReducer } from './redux/reducers/answersschemasarrayreducer';
 
 @NgModule({
@@ -33,7 +37,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     QuestionDocComponent,
     QuestionComponent,
     NewQuestionComponent,
-    NewQuestionsDocComponent
+    NewQuestionsDocComponent,
+    QueAndAeyComponent,
+    UserDataComponent
   ],
   imports: [
     MatButtonToggleModule,
@@ -49,7 +55,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatListModule,
     MatRadioModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [GeneralServiceService],
   bootstrap: [AppComponent]

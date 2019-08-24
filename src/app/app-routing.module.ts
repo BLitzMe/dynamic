@@ -1,3 +1,4 @@
+import { UserDataComponent } from './users-page/user-data/user-data.component';
 import { AdminsPageComponent } from './admins-page/admins-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'adminsPage',
     component: AdminsPageComponent
+  },
+  {
+    path: 'userDataInput',
+    component: UserDataComponent
   }
 ];
 

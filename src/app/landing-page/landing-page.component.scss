@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  border: 0.09em solid;
+  border-radius: 0.3em;
 }
 a {
   color: inherit;
@@ -13,7 +15,7 @@ a {
   /* no underline */
 }
 .generalButton {
-  margin-bottom: 0.5em;
+  margin: 0.5em 0.5em;
 }
 .generalButton:hover {
   background-color: beige;
