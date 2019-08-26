@@ -1,0 +1,32 @@
+#questionsList {
+  display: grid;
+
+  grid-template-columns: auto;
+}
+#questionInformation {
+  grid-row: 1/2;
+  grid-column: 1/4;
+}
+#answerInformation {
+  grid-row: 2/3;
+  grid-column: 1/4;
+}
+#matDialog {
+  margin: 0.5em;
+}
+#matDialogContent .mat-list-item {
+  margin-bottom: 3.5em;
+}
+#matActionButtons {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+#okayButton {
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+}
+#generateJSONButton {
+  grid-row: 1 / span 1;
+  grid-column: 3 / span 1;
+}

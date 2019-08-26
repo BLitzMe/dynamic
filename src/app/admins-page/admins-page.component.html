@@ -6,8 +6,19 @@
       id="bannerImage"
     />
   </div>
+  <button mat-stroked-button id="enableSchemasView" (click)="schemasTab = true">
+    Schemas
+  </button>
+  <button mat-stroked-button id="enableRecordsTab" (click)="schemasTab = false">
+    Records
+  </button>
 
-  <div id="schemasContainer">
+  <app-records-tab
+    id="recordTabContainer"
+    *ngIf="!schemasTab"
+  ></app-records-tab>
+
+  <div id="schemasContainer" *ngIf="schemasTab">
     <div class="generalBox" *ngIf="newQuestionsDocInput" id="newSchemaInput">
       <h5>New Schema</h5>
       <app-new-questions-doc

@@ -48,6 +48,7 @@ export class QuestionComponent implements OnInit {
     });
   }
   editQuestionValue(questionKey) {
+    console.log(questionKey);
     const dataToSend = new FormData();
     dataToSend.append('questionKey', questionKey);
     dataToSend.append(

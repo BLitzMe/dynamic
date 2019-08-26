@@ -2,11 +2,9 @@ import { catchError, tap, map, mergeAll } from 'rxjs/operators';
 import { GeneralServiceService } from './../general-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { QuestionsProperties } from '../Models/getPropertiesIF';
-import { Observable, of, from, merge, scheduled, combineLatest } from 'rxjs';
-import { DbSchemaObject, DbSchemasObject } from './../Models/dbSchemasModel';
+import { Observable, of } from 'rxjs';
 import * as _ from 'lodash';
-import { Promise } from 'q';
+
 import { QuestionDoc } from '../Models/questionDocIf';
 @Injectable({
   providedIn: 'root'
@@ -99,5 +97,4 @@ export class AdminsPageService {
       this.resOptions
     );
   }
-  
 }

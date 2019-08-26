@@ -25,7 +25,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { QueAndAeyComponent } from './users-page/que-and-aey/que-and-aey.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserDataComponent } from './users-page/user-data/user-data.component';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
+import { RecordsTabComponent } from './admins-page/records-tab/records-tab.component';
+import { RecordModalComponent } from './admins-page/records-tab/record-modal/record-modal.component';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 // import { answersSchemasArrayReducer } from './redux/reducers/answersschemasarrayreducer';
 
 @NgModule({
@@ -39,7 +42,9 @@ import { DatePipe } from '@angular/common';
     NewQuestionComponent,
     NewQuestionsDocComponent,
     QueAndAeyComponent,
-    UserDataComponent
+    UserDataComponent,
+    RecordsTabComponent,
+    RecordModalComponent
   ],
   imports: [
     MatButtonToggleModule,
@@ -56,9 +61,12 @@ import { DatePipe } from '@angular/common';
     MatRadioModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    CommonModule
   ],
   providers: [GeneralServiceService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [RecordModalComponent]
 })
 export class AppModule {}

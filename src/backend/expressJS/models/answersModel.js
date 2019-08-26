@@ -14,11 +14,12 @@ let userInfo = {
 let answerObj = {
   questionKey: {type: String},
   questionValue: { type: String },
-  answerValue: { type: String }
+  answerValue: { type: String },
+  answerKey:{type:Number}
 };
 let answers = new Schema(
   {
-    date: { type: String },
+    date: { type: Date },
     userInfo: { type: userInfo },
     answerObj: { type: [answerObj] }
   },

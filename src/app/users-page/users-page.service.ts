@@ -3,10 +3,10 @@ import { UserData } from './../Models/userDataIF';
 import { GeneralServiceService } from './../general-service.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Observable, of } from 'rxjs';
 import { ModelsInformationObject } from '../Models/modelsInformationObjectModel';
 import * as _ from 'lodash';
+import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class UsersPageService {
   receivedSchemasArray: Observable<Array<ModelsInformationObject>>;
   backendUri = this.genService.backendUri;
   answerDoc: AnswersDoc = new AnswersDoc();
-
+  resOptions = this.genService.textResponseHttpOptions;
   userInfoEdited = false;
   schemasArray: any;
 
@@ -43,6 +43,35 @@ export class UsersPageService {
     }
     return false;
   }
-  // !! need to send schemaName and schema data, also array of
-  // !! field value update objects to update
+  sendAnswersDoc$(dataToSend) {
+    return this.http.post(
+      this.backendUri + '/createAnswersDoc',
+      dataToSend,
+      this.genService.generalHttpOptions
+    );
+  }
+  getAllAnswerDocs$(): Observable<AnswersDoc[]> {
+    return this.genService.getAllAnswerDocs$().pipe(
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );
+  }
+  getJsonObj$(dataToSend): Observable<JSON> {
+    return this.http
+      .post<JSON>(
+        this.backendUri + '/getJsonObject',
+        dataToSend,
+        this.resOptions
+      )
+      .pipe(
+        map(result => {
+          const pipedData = JSON.parse(result.toString());
+          return pipedData;
+        })
+      );
+  }
 }
+// !! need to send schemaName and schema data, also array of
+// !! field value update objects to update

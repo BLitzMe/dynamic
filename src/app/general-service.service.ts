@@ -1,3 +1,4 @@
+import { AnswersDoc } from './Models/ansersDocModel';
 import { QuestionDoc } from './Models/questionDocIf';
 import { DbSchemasObject } from './Models/dbSchemasModel';
 import { Observable, of } from 'rxjs';
@@ -31,33 +32,9 @@ export class GeneralServiceService {
   getQuestionDocs$(): Observable<QuestionDoc[]> {
     return this.http.get<QuestionDoc[]>(this.backendUri + '/getAllQuestions');
   }
-  /*  questionsSchemasArray$: any = this.http
-    .get<ModelsInformationObject[]>(
-      this.backendUri + '/bootSchemaFactory/questionsSchemas'
-    )
-    .pipe(tap());
-  answersSchemasArray$: any = this.http.get<ModelsInformationObject[]>(
-    this.backendUri + '/bootSchemaFactory/answersSchemas'
-  );
-  dbSchemasArray$: Observable<DbSchemasObject> = this.http.get<DbSchemasObject>(
-    this.backendUri + '/getDatabaseSchemas'
-  );
-
-  getQuestionProperties(
-    schemaName?: string,
-    schemaFields?: string[]
-  ): Observable<QuestionsProperties[]> {
-    return this.http
-      .post(
-        this.backendUri + '/getProperties/getQuestionsDocs',
-        { schemaName, schemaFields },
-        this.generalHttpOptions
-      )
-      .pipe(
-        catchError(err => {
-          console.log(err);
-          return of(null);
-        })
-      );
-  } */
+  getAllAnswerDocs$(): Observable<AnswersDoc[]> {
+    return this.http.get<AnswersDoc[]>(
+      this.backendUri + '/getAnswerDocs/allAnswerDocs'
+    );
+  }
 }

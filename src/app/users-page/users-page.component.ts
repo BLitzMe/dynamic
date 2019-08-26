@@ -1,14 +1,14 @@
 import { DatePipe } from '@angular/common';
-import { QuestionDoc, SingleQuestion } from './../Models/questionDocIf';
-import { GeneralServiceService } from './../general-service.service';
-import { UsersPageService } from './users-page.service';
 import { Component, OnInit } from '@angular/core';
-import { ItemNumber } from '../Models//itemNumberInterface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as _ from 'lodash';
-import { Observable, of, from } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+
+import { ItemNumber } from '../Models//itemNumberInterface';
+import { GeneralServiceService } from './../general-service.service';
+import { QuestionDoc } from './../Models/questionDocIf';
+import { UsersPageService } from './users-page.service';
 
 @Component({
   selector: 'app-users-page',
@@ -22,7 +22,7 @@ export class UsersPageComponent implements OnInit {
   questionnaireSelected = false;
   paginationControlsForm: FormGroup;
   currentQuestionIndex = 0;
-  myDate = new Date();
+
   formattedDate: string;
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +32,8 @@ export class UsersPageComponent implements OnInit {
     private router: Router,
     private datePipe: DatePipe
   ) {
-    this.formattedDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+    /*   this.formattedDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+     */
   }
   itemNumbers: ItemNumber[] = [
     { viewValue: 10 },
@@ -79,13 +80,17 @@ export class UsersPageComponent implements OnInit {
   }
   decreaseQuestionIndex(event, questions) {
     if (
-      this.currentQuestionIndex >= 0 &&
+      this.currentQuestionIndex > 0 &&
       this.usersService.checkAnswerDocDuplicates(
         questions[this.currentQuestionIndex - 1].questionKey
       ) === true
     ) {
       this.snackBar.open(
-        'data for previous question already saved. Please go to next question'
+        'data for previous question already saved. Please go to next question',
+        '',
+        {
+          duration: 1500
+        }
       );
     } else if (this.currentQuestionIndex === 0) {
       this.snackBar.open('This is the first Question', '', {
@@ -99,8 +104,17 @@ export class UsersPageComponent implements OnInit {
   }
   sendData() {
     console.log(this.usersService.answerDoc);
-    this.usersService.answerDoc.date = this.formattedDate;
-    this.router.navigate(['./usersPage']);
-    console.log(this.usersService.answerDoc);
+    this.usersService.answerDoc.date = new Date();
+    const dataToSend = new FormData();
+    /*  dataToSend.append('answersDoc', this.usersService.answerDoc.toString());
+     */
+
+    this.usersService
+      .sendAnswersDoc$(this.usersService.answerDoc)
+      .subscribe(message => {
+        console.log(message);
+        this.snackBar.open('Data saved successfully', '', { duration: 1500 });
+        this.questionnaireSelected = false;
+      });
   }
 }

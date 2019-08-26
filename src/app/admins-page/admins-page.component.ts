@@ -34,7 +34,7 @@ export class AdminsPageComponent implements OnInit {
   newQuestionsDocInput: any = false;
   schemaEditData: FormGroup;
 
-  // form properties
+  schemasTab = true;
 
   constructor(
     private genService: GeneralServiceService,
@@ -66,6 +66,4 @@ export class AdminsPageComponent implements OnInit {
   subscribeToApi(signal?: any) {
     this.questionsDocs$ = this.adminService.getQuestionDocs$();
   }
-
-  
 }

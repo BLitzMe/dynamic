@@ -10,6 +10,8 @@
   justify-self: center;
 }
 #dataInputForm {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   grid-column: 5 / span 5;
   grid-row-start: 2;
   margin: 0.5em;
@@ -17,4 +19,16 @@
 
 #dataInputForm .mat-list-item {
   margin: 1em;
+}
+#saveDataButton {
+  grid-column: 1 / span 1;
+  grid-row: 2/3;
+}
+#cancelButton {
+  grid-column: 3 / span 1;
+  grid-row: 2/3;
+}
+#matList {
+  grid-column: 1/-1;
+  grid-row: 1/2;
 }

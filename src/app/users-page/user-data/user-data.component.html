@@ -7,7 +7,7 @@
   <div id="userDataContainer">
     <p class="title is-4" id="dataInputHeading">Personal Infomation</p>
     <div id="dataInputForm">
-      <mat-list>
+      <div id="matList"><mat-list >
         <mat-list-item>
           Name:
           <mat-form-field>
@@ -104,7 +104,8 @@
             />
           </mat-form-field>
         </mat-list-item>
-      </mat-list>
+      </mat-list></div>
+      
       <button mat-stroked-button id="saveDataButton" (click)="saveData()">
         Save
       </button>

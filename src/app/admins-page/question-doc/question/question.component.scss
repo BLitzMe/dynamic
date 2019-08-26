@@ -6,7 +6,8 @@
 #optionsButton {
   margin: 0.5em 0.5em;
 }
-#optionsDiv {
+#optionsDivWrapper {
+  flex-wrap: wrap;
   margin: 0.5em;
   display: flex;
   align-items: center;
@@ -22,7 +23,7 @@
 #questionDataForm .mat-stroked-button {
   margin-left: 1em;
 }
-#questionOptionsSpan {
+#questionOptions {
   display: flex;
   align-items: center;
 }

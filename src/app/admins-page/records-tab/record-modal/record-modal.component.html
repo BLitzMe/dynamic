@@ -1,0 +1,42 @@
+<div id="matDialog">
+  <h1 class="title is-5" mat-dialog-title>
+    {{ data.userInfo.Vorname }} {{ data.userInfo.Name }}
+  </h1>
+  <div mat-dialog-content id="matDialogContent">
+    <div id="list" [hidden]="jGenned">
+      <mat-list>
+        <mat-list-item *ngFor="let obj of data.answerObj">
+          <div id="questionsList">
+            <span class="title is-6" id="questionInformation"
+              >{{ obj.questionKey }}: {{ obj.questionValue }}</span
+            >
+
+            <span id="answerInformation" class="title is-6"
+              >Answer: {{ obj.answerValue }}</span
+            >
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div id="generatedJSON" [hidden]="!jGenned">
+      <p>{{ gennedJSON$ | async | json }}</p>
+    </div>
+  </div>
+  <div mat-dialog-actions id="matActionButtons">
+    <button
+      mat-stroked-button
+      (click)="onNoClick()"
+      cdkFocusInitial
+      id="okayButton"
+    >
+      Done
+    </button>
+    <button
+      mat-stroked-button
+      id="generateJSONButton"
+      (click)="getJSONObj(data.date)"
+    >
+      Generate JSON
+    </button>
+  </div>
+</div>

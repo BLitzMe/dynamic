@@ -24,8 +24,10 @@ const express = require('express'),
   delquesDocRoute = require('./routes/CRUDoperations/questions/quesDocs/delQuesDoc'),
   createQuesDocRoute = require('./routes/CRUDoperations/questions/quesDocs/createQuesDoc'),
   delOptionsRoute = require('./routes/CRUDoperations/questions/questionOptions/delOption'),
-  updateSchemaNameOnQuesDoc = require('./routes/CRUDoperations/questions/quesDocs/updateSchemaNameOnDoc');
-
+  updateSchemaNameOnQuesDoc = require('./routes/CRUDoperations/questions/quesDocs/updateSchemaNameOnDoc'),
+  createAnswersDocRoute = require('./routes/CRUDoperations/answers/createAnswersDoc'),
+  getAnswersDocsRoute = require('./routes/CRUDoperations/answers/getAnswerDocs'),
+  getJsonObjectRoute = require('./routes/CRUDoperations/answers/getJsonObj');
 //express definitions
 /* app.use(
   bodyParser.urlencoded({
@@ -81,6 +83,13 @@ app.use('/deleteAQuestion', deleteQuestionRoute.delQuestionsRoute);
 app.use('/deleteQuestionDocument', delquesDocRoute.delQuesDocRoute);
 app.use('/createQuesDoc', createQuesDocRoute.createQuesDocRoute);
 app.use('/delOptions', delOptionsRoute.delOptionsRoute);
-app.use('/updateSchemaNameOnQuesDoc', updateSchemaNameOnQuesDoc.updateSchemaNameRoute);
+app.use(
+  '/updateSchemaNameOnQuesDoc',
+  updateSchemaNameOnQuesDoc.updateSchemaNameRoute
+);
+app.use('/createAnswersDoc', createAnswersDocRoute.createAnswersDocRoute);
+app.use('/getAnswerDocs', getAnswersDocsRoute.getAllAnswersDocsRoute);
+app.use('/getJsonObject', getJsonObjectRoute.getJsonRoute);
+
 app.listen(port);
 console.log('Listening on port ' + port);

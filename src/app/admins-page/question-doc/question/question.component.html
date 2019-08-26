@@ -136,11 +136,11 @@
         Add Options
       </button>
     </div>
-    <span *ngIf="question.questionOptions.length > 0" id="optionsDiv">
-      <span
+    <div *ngIf="question.questionOptions.length > 0" id="optionsDivWrapper">
+      <div
         *ngFor="let option of question.questionOptions; let i = index"
-        id="questionOptionsSpan"
-        ><span></span>
+        id="questionOptions"
+      >
         <ng-template #questionOptionPopOver
           ><div id="keyPopoverIcons">
             <i
@@ -184,7 +184,7 @@
         >
           {{ option }}
         </button>
-      </span>
+      </div>
       <span id="additOptionsIcon"
         ><i
           class="material-icons"
@@ -217,6 +217,6 @@
           </button></span
         >
       </span>
-    </span>
+    </div>
   </form>
 </div>
